@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created using JasperAssistant (http://www.jasperassistant.com) -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="print_retur_do" pageWidth="595" pageHeight="426" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
+	<property name="com.jasperassistant.designer.Grid" value="false"/>
+	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
+	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
+	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
+	<property name="com.jasperassistant.designer.DataSource" value="stock"/>
+	<parameter name="trans_id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[new Integer(2)]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT tr.*, trd.urut, trd.item_id, trd.qty_order, trd.qty, trd.harga, trd.persen_diskon,
+trd.jumlah_diskon, trd.dk trd_dk, trd.flag trd_flag, trd.hpp trd_hpp, trd.ket trd_ket, 
+i.nama item_name, s.nama satuan_name
+FROM mst_trans tr, mst_trans_det trd, lst_item i, lst_satuan s
+WHERE tr.trans_id = trd.trans_id
+AND trd.item_id = i.id
+AND i.satuan_id = s.id
+AND tr.trans_id = $P{trans_id}
+;]]>
+	</queryString>
+	<field name="alamat_tujuan" class="java.lang.String"/>
+	<field name="approveby" class="java.lang.Integer"/>
+	<field name="approvedate" class="java.sql.Timestamp"/>
+	<field name="cancel" class="java.lang.Boolean"/>
+	<field name="cancelby" class="java.lang.Integer"/>
+	<field name="canceldate" class="java.sql.Timestamp"/>
+	<field name="contact_tujuan" class="java.lang.String"/>
+	<field name="createby" class="java.lang.Integer"/>
+	<field name="createdate" class="java.sql.Timestamp"/>
+	<field name="customer_id" class="java.lang.Integer"/>
+	<field name="delivery_id" class="java.lang.Integer"/>
+	<field name="dk" class="java.lang.String"/>
+	<field name="driver_id" class="java.lang.Integer"/>
+	<field name="due_date" class="java.sql.Timestamp"/>
+	<field name="flag_ecer" class="java.lang.Boolean"/>
+	<field name="flag_kirim" class="java.lang.Boolean"/>
+	<field name="gudang_id" class="java.lang.Integer"/>
+	<field name="harga" class="java.math.BigDecimal"/>
+	<field name="item_id" class="java.lang.Integer"/>
+	<field name="item_name" class="java.lang.String"/>
+	<field name="jenis" class="java.lang.Integer"/>
+	<field name="jumlah_diskon" class="java.math.BigDecimal"/>
+	<field name="ket" class="java.lang.String"/>
+	<field name="no_po" class="java.lang.String"/>
+	<field name="no_sj" class="java.lang.String"/>
+	<field name="no_trans" class="java.lang.String"/>
+	<field name="paid" class="java.lang.Boolean"/>
+	<field name="pay_mode" class="java.lang.Integer"/>
+	<field name="persen_diskon" class="java.math.BigDecimal"/>
+	<field name="posisi_id" class="java.lang.Integer"/>
+	<field name="print_faktur_date" class="java.sql.Timestamp"/>
+	<field name="print_order_form" class="java.sql.Timestamp"/>
+	<field name="print_sj" class="java.lang.Boolean"/>
+	<field name="print_sj_date" class="java.sql.Timestamp"/>
+	<field name="print_trans" class="java.lang.Boolean"/>
+	<field name="print_trans_date" class="java.sql.Timestamp"/>
+	<field name="qty" class="java.math.BigDecimal"/>
+	<field name="qty_order" class="java.math.BigDecimal"/>
+	<field name="receivedby" class="java.lang.Integer"/>
+	<field name="receiveddate" class="java.sql.Timestamp"/>
+	<field name="remain" class="java.math.BigDecimal"/>
+	<field name="retail_id" class="java.lang.Integer"/>
+	<field name="retail_id_req" class="java.lang.Integer"/>
+	<field name="retur_type" class="java.lang.Boolean"/>
+	<field name="sales_id" class="java.lang.Integer"/>
+	<field name="satuan_name" class="java.lang.String"/>
+	<field name="supplier_id" class="java.lang.Integer"/>
+	<field name="telp_tujuan" class="java.lang.String"/>
+	<field name="tgl_kembali" class="java.sql.Timestamp"/>
+	<field name="tgl_kirim" class="java.sql.Timestamp"/>
+	<field name="tgl_kirim_est" class="java.sql.Timestamp"/>
+	<field name="tgl_order" class="java.sql.Timestamp"/>
+	<field name="total_disc" class="java.math.BigDecimal"/>
+	<field name="total_harga" class="java.math.BigDecimal"/>
+	<field name="trans_date" class="java.sql.Timestamp"/>
+	<field name="trans_id" class="java.lang.Integer"/>
+	<field name="trd_dk" class="java.lang.String"/>
+	<field name="trd_flag" class="java.math.BigDecimal"/>
+	<field name="trd_hpp" class="java.math.BigDecimal"/>
+	<field name="trd_ket" class="java.lang.String"/>
+	<field name="urut" class="java.lang.Integer"/>
+	<title>
+		<band height="153">
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="67" y="112" width="139" height="15"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{tgl_kirim}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="6" y="112" width="58" height="15"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Tgl. SJ :]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="132" width="556" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="134" y="135" width="220" height="15"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Barang]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="261" y="3" width="58" height="15"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Kepada :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="71" y="135" width="58" height="15"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Satuan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="97" width="58" height="15"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[No. SJ :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="321" y="3" width="230" height="15"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{contact_tujuan}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="67" y="97" width="139" height="15"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{no_sj}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="129" width="556" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="152" width="556" height="1"/>
+			</line>
+			<textField isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="321" y="18" width="230" height="15"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{telp_tujuan}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="6" y="135" width="58" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Quantity]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="321" y="33" width="230" height="15"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{alamat_tujuan}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="358" y="135" width="191" height="15"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Keterangan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="115" y="66" width="284" height="25"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[R E T U R  P E N J U A L A N]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="261" y="33" width="58" height="15"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Alamat :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="261" y="18" width="58" height="15"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Telp. :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="6" y="3" width="185" height="34"/>
+				<textElement verticalAlignment="Bottom" markup="none">
+					<font fontName="Free 3 of 9 Extended" size="48" pdfFontName="3of9" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{no_sj}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="17">
+			<textField isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="6" y="2" width="58" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{qty}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="71" y="2" width="58" height="15"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{satuan_name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="134" y="2" width="220" height="15"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{item_name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="358" y="2" width="191" height="15"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{trd_ket}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="109">
+			<line>
+				<reportElement x="0" y="2" width="556" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="6" y="7" width="73" height="15"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Keterangan :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="36" width="100" height="15"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Diterima]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="82" y="7" width="467" height="15"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ket}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="343" y="36" width="100" height="15"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Diperiksa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="449" y="36" width="100" height="15"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[Disetujui]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="94" width="100" height="15"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[(                             )]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="343" y="94" width="100" height="15"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[(                             )]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="449" y="94" width="100" height="15"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA[(                             )]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="79" width="212" height="15"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA["Periksa barang sebelum diterima"]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="94" width="212" height="15"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<text><![CDATA["Barang yg sudah dibeli tdk dpt dikembalikan"]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

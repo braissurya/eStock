@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created using JasperAssistant (http://www.jasperassistant.com) -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="laporan_limit_kredit" pageWidth="1500" pageHeight="842" columnWidth="1460" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
+	<property name="com.jasperassistant.designer.DataSource" value="stock"/>
+	<property name="com.jasperassistant.designer.Grid" value="false"/>
+	<property name="com.jasperassistant.designer.SnapToGrid" value="true"/>
+	<property name="com.jasperassistant.designer.GridWidth" value="5"/>
+	<property name="com.jasperassistant.designer.GridHeight" value="5"/>
+	<property name="com.jasperassistant.designer.Margins" value="true"/>
+	<property name="com.jasperassistant.designer.Rulers" value="true"/>
+	<property name="com.jasperassistant.designer.SnapToGuides" value="true"/>
+	<parameter name="username" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT c.*, t.sisa
+FROM mst_customer c, 
+	 ( select customer_id, sum(remain) sisa 
+	   from mst_trans 
+	   where customer_id is not null 
+	   and paid = 0
+	   and jenis = 4 ) t
+WHERE c.id = t.customer_id
+AND c.active = 1
+AND c.limit_hutang <  t.sisa
+;]]>
+	</queryString>
+	<field name="active" class="java.lang.Boolean"/>
+	<field name="alamat" class="java.lang.String"/>
+	<field name="contact" class="java.lang.String"/>
+	<field name="createby" class="java.lang.Integer"/>
+	<field name="createdate" class="java.sql.Timestamp"/>
+	<field name="due_date" class="java.sql.Timestamp"/>
+	<field name="email" class="java.lang.String"/>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="kode" class="java.lang.String"/>
+	<field name="kota" class="java.lang.String"/>
+	<field name="limit_hutang" class="java.math.BigDecimal"/>
+	<field name="modifyby" class="java.lang.Integer"/>
+	<field name="modifydate" class="java.sql.Timestamp"/>
+	<field name="nama" class="java.lang.String"/>
+	<field name="no_fax" class="java.lang.String"/>
+	<field name="no_hp" class="java.lang.String"/>
+	<field name="no_telp" class="java.lang.String"/>
+	<field name="pkp" class="java.lang.Boolean"/>
+	<field name="sisa" class="java.math.BigDecimal"/>
+	<variable name="total_sisa" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{sisa}]]></variableExpression>
+	</variable>
+	<variable name="grand_total" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[new BigDecimal($V{total_sisa}.doubleValue() - $F{limit_hutang}.doubleValue())]]></variableExpression>
+	</variable>
+	<title>
+		<band height="60">
+			<textField isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="96" y="20" width="144" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{username}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="20" width="96" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[User:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="96" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Waktu:]]></text>
+			</staticText>
+			<textField pattern="dd-MMM-yyyy [HH:mm:ss]" isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="96" y="40" width="144" height="20"/>
+				<textElement verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="96" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Laporan:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="96" y="0" width="265" height="20"/>
+				<textElement verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Laporan Limit Kredit Customer"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="20">
+			<staticText>
+				<reportElement x="0" y="0" width="31" height="20"/>
+				<box padding="2">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="121" y="0" width="170" height="20"/>
+				<box padding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nama]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="291" y="0" width="216" height="20"/>
+				<box padding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Alamat]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="507" y="0" width="101" height="20"/>
+				<box padding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Kota]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="31" y="0" width="90" height="20"/>
+				<box padding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Kode]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="608" y="0" width="103" height="20"/>
+				<box padding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PIC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="711" y="0" width="94" height="20"/>
+				<box padding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[No Telp]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="805" y="0" width="94" height="20"/>
+				<box padding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[No HP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="899" y="0" width="94" height="20"/>
+				<box padding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[No Fax]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="993" y="0" width="167" height="20"/>
+				<box padding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Email]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1256" y="0" width="96" height="20"/>
+				<box padding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Limit Hutang]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1160" y="0" width="96" height="20"/>
+				<box padding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Jumlah Hutang]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1352" y="0" width="96" height="20"/>
+				<box padding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sisa Kelebihan]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<elementGroup/>
+			<textField isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="0" y="0" width="31" height="20"/>
+				<box padding="3"/>
+				<textElement verticalAlignment="Middle" lineSpacing="Single"/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="121" y="0" width="170" height="20"/>
+				<box padding="2"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nama}]]></textFieldExpression>
+			</textField>
+			<textField hyperlinkType="None">
+				<reportElement x="31" y="0" width="90" height="20"/>
+				<box padding="2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{kode}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="291" y="0" width="216" height="20"/>
+				<box padding="2"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{alamat}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="507" y="0" width="101" height="20"/>
+				<box padding="2"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{kota}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="608" y="0" width="103" height="20"/>
+				<box padding="2"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{contact}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="711" y="0" width="94" height="20"/>
+				<box padding="2"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{no_telp}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="805" y="0" width="94" height="20"/>
+				<box padding="2"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{no_hp}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="899" y="0" width="94" height="20"/>
+				<box padding="2"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{no_fax}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="993" y="0" width="167" height="20"/>
+				<box padding="2"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.##;(#,##0.##)" hyperlinkType="None">
+				<reportElement x="1160" y="0" width="96" height="20"/>
+				<box padding="2">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{sisa}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.##;(#,##0.##)" hyperlinkType="None">
+				<reportElement x="1352" y="0" width="96" height="20"/>
+				<box padding="2">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[new BigDecimal($F{sisa}.doubleValue() - $F{limit_hutang}.doubleValue())]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="24">
+			<staticText>
+				<reportElement x="993" y="4" width="167" height="20"/>
+				<box padding="2">
+					<topPen lineWidth="0.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="3.0" lineStyle="Double"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField pattern="#,##0.##;(#,##0.##)" hyperlinkType="None">
+				<reportElement x="1160" y="4" width="96" height="20"/>
+				<box padding="2">
+					<topPen lineWidth="0.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="3.0" lineStyle="Double"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{total_sisa}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.##;(#,##0.##)" hyperlinkType="None">
+				<reportElement x="1256" y="4" width="96" height="20"/>
+				<box padding="2">
+					<topPen lineWidth="0.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="3.0" lineStyle="Double"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{limit_hutang}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.##;(#,##0.##)" hyperlinkType="None">
+				<reportElement x="1352" y="4" width="96" height="20"/>
+				<box padding="2">
+					<topPen lineWidth="0.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="3.0" lineStyle="Double"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{grand_total}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="2" width="1449" height="1"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

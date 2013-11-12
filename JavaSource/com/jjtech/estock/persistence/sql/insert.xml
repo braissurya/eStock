@@ -1,0 +1,882 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jjtech.estock.persistence.DbMapper">
+	
+	<insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		INSERT INTO LST_USER (
+			cabang_id
+			, nama
+			, dob
+			, email
+			, nik
+			, username
+			, password
+			, group_user_id
+			, lastlogin
+			, active
+			, createby
+			, createdate
+			, modifyby
+			, modifydate
+			, flag_approval
+			, flag_akses_all
+		) values (
+			  #{cabang_id}
+			, upper(#{nama})
+			, #{dob}
+			, #{email}
+			,  upper(#{nik})
+			, upper(#{username})
+			, AES_ENCRYPT(#{passwordDecrypt},'JJTech eSt0ck')
+			, #{group_user_id}
+			, #{lastlogin}
+			, #{active}
+			, #{createby}
+			, #{createdate}
+			, #{modifyby}
+			, #{modifydate}
+			, #{flag_approval}
+			, #{flag_akses_all}
+		)
+	</insert>
+	
+	<insert id="insertGroupUser"  parameterType="GroupUser" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		INSERT INTO LST_GROUP_USER (
+			 nama
+		) values (
+			upper(#{nama})
+		)
+	</insert>
+	
+	<insert id="insertHakAkses" parameterType="GroupUser" >
+		INSERT INTO LST_HAK_AKSES (
+			group_user_id
+			, menu_id
+			, active
+		) values (
+			#{id}
+			, #{menu_id}
+			, #{active}
+		)
+	</insert>
+	
+	<insert id="insertMenu" parameterType="Menu" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		INSERT INTO LST_MENU (
+			parent
+			, nama
+			, link
+			, urut
+			, level
+			, path
+			, active
+			, createby
+			, createdate
+		) values (
+			#{parent}
+			, upper(#{nama})
+			, #{link}
+			, #{urut}
+			, #{level}
+			, upper(#{path})
+			, #{active}
+			, #{createby}
+			, #{createdate}
+		)
+	</insert>
+	
+	<insert id="insertCategory" parameterType="Category" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		INSERT INTO LST_KATEGORI (
+			ID
+			, NAMA
+			, INISIAL
+			, NOMOR
+			, FLAGDET
+			, ACTIVE
+			, CREATEBY
+			, CREATEDATE
+		) VALUES (
+			#{id}
+			, upper(#{nama})
+			, upper(#{inisial})
+			, #{nomor}
+			, #{flagdet}
+			, #{active}
+			, #{createby}
+			, #{createdate}
+		)
+	</insert>
+	
+	<insert id="insertSupplier" parameterType="Supplier" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		INSERT INTO MST_SUPPLIER (
+			kode 
+			, nama 
+			, alamat 
+			, kota 
+			, contact 
+			, no_telp 
+			, no_hp 
+			, email 
+			, tenor 
+			, no_fax 
+			, hutang 
+			, last_order 
+			, active
+			, CREATEBY
+			, CREATEDATE 
+		) VALUES (
+			 upper(#{kode}) 
+			, upper(#{nama}) 
+			, upper(#{alamat}) 
+			, upper(#{kota}) 
+			, upper(#{contact}) 
+			, upper(#{no_telp}) 
+			, upper(#{no_hp}) 
+			, upper(#{email}) 
+			, #{tenor} 
+			, upper(#{no_fax}) 
+			, #{hutang} 
+			, #{last_order} 
+			, #{active} 
+			, #{createby}
+			, #{createdate}
+		)
+	</insert>
+	
+	<insert id="insertOpname" parameterType="Opname" useGeneratedKeys="true" keyColumn="opname_id" keyProperty="opname_id">
+		INSERT INTO MST_OPNAME (
+			cabang_id,
+			tgl,
+			no_trans,
+			posisi_id,
+			createby,
+			createdate
+		)values (
+			#{cabang_id},
+			#{tgl},
+			#{no_trans},
+			#{posisi_id},
+			#{createby},
+			#{createdate}
+		)
+	</insert>
+	
+	<insert id="insertTrans" parameterType="Trans" useGeneratedKeys="true" keyColumn="trans_id" keyProperty="trans_id">
+		INSERT INTO MST_TRANS ( 
+			 trans_date 
+			, jenis 
+			, no_trans 
+			, no_po 
+			, no_sj 
+			, tgl_kirim 
+			, tgl_kirim_est
+			, tgl_order
+			, tgl_kembali
+			, tgl_req_trans
+			, tgl_gudang_trans
+			, tgl_terima_trans
+			, flag_ecer 
+			, flag_kirim
+			, pay_mode
+			, dk 
+			, retail_id 
+			, retail_id_req
+			, gudang_id 
+			, supplier_id 
+			, customer_id 
+			, sales_id 
+			, driver_id 
+			, ket 
+			, flag_pajak 
+			, total_harga 
+			, total_disc 
+			, ppn 
+			, posisi_id 
+			, print_trans 
+			, print_sj 
+			, due_date 
+			, print_order_form
+			, print_trans_date
+			, print_faktur_date
+			, print_sj_date
+			, paid 
+			, remain 
+			, no_trans_ref
+			, retur_type
+			, approveby 
+			, approvedate 
+			, createby 
+			, createdate 
+			, contact_tujuan
+			, alamat_tujuan
+			, telp_tujuan
+		) values (  
+			 #{trans_date} 
+			, #{jenis} 
+			, upper(#{no_trans}) 
+			, upper(#{no_po}) 
+			, upper(#{no_sj}) 
+			, #{tgl_kirim} 
+			, #{tgl_kirim_est}
+			, #{tgl_order}
+			, #{tgl_kembali}
+			, #{tgl_req_trans}
+			, #{tgl_gudang_trans}
+			, #{tgl_terima_trans}
+			, #{flag_ecer}
+			, #{flag_kirim}
+			, #{pay_mode} 
+			, upper(#{dk}) 
+			, #{retail_id}
+			, #{retail_id_req}  
+			, #{gudang_id} 
+			, #{supplier_id} 
+			, #{customer_id} 
+			, #{sales_id} 
+			, #{driver_id} 
+			, upper(#{ket}) 
+			, #{flag_pajak}
+			, #{total_harga} 
+			, #{total_disc} 
+			, #{ppn} 
+			, #{posisi_id} 
+			, #{print_trans} 
+			, #{print_sj} 
+			, #{due_date} 
+			, #{print_order_form} 
+			, #{print_trans_date} 
+			, #{print_faktur_date} 
+			, #{print_sj_date} 
+			, #{paid} 
+			, #{remain} 
+			, #{no_trans_ref}
+			, #{retur_type} 
+			, #{approveby} 
+			, #{approvedate} 
+			, #{createby} 
+			, #{createdate} 
+			, #{contact_tujuan}
+			, #{alamat_tujuan}
+			, #{telp_tujuan}
+		)
+	</insert>
+	
+	<insert id="insertOpnameDet" parameterType="OpnameDet">
+		INSERT INTO MST_OPNAME_DET (
+			opname_id,
+			item_id,
+			jenis,
+			qty,
+			qty_fisik
+		)VALUES (
+			#{opname_id},
+			#{item_id},
+			#{jenis},
+			#{qty},
+			#{qty_fisik}
+		)
+	</insert>
+	
+	<insert id="insertTransDet" parameterType="TransDet">
+		INSERT INTO MST_TRANS_DET ( 
+			trans_id 
+			, urut
+			, item_id 
+			, qty_order 
+			, qty 
+			, harga 
+			, persen_diskon 
+			, jumlah_diskon 
+			, dk 
+			, flag 
+			, hpp 
+			, ket 
+			, jenis_retur 
+		) values ( 
+			#{trans_id} 
+			, #{urut}
+			, #{item_id} 
+			, #{qty_order} 
+			, #{qty} 
+			, #{harga} 
+			, #{persen_diskon} 
+			, #{jumlah_diskon} 
+			, upper(#{dk}) 
+			, #{flag} 
+			, #{hpp} 
+			, upper(#{ket}) 
+			, #{jenis_retur} 
+		)
+	</insert>
+	
+	<insert id="insertTransHist" parameterType="TransHist">
+		INSERT INTO MST_TRANS_HIST ( 
+			trans_id 
+			, tgl 
+			, posisi_id 
+			, keterangan 
+			, createby 
+			, createdate 
+		) values ( 
+			#{trans_id} 
+			, #{tgl} 
+			, #{posisi_id} 
+			, upper(#{keterangan}) 
+			, #{createby} 
+			, #{createdate} 
+		)
+	</insert>
+	
+	<insert id="insertItem" parameterType="Item" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		INSERT INTO LST_ITEM ( 
+			nama 
+			, inisial 
+			, kategori_id 
+			, merk_id 
+			, warna_id 
+			, satuan_id 
+			, satuan2_id 
+			, qty_satuan2
+			, satuan3_id 
+			, qty_satuan3
+			, satuan_jual_id 
+			, satuan_beli_id 
+			, harga 
+			, harga_ecer 
+			, diskon 
+			, diskon_ecer
+			, qty_min 
+			, qty_max
+			, hpp_awal 
+			, last_order 
+			, active 
+			, createby 
+			, createdate
+			, barcode_ext
+			, barcode_int 
+		) values ( 
+			upper(#{nama}) 
+			, upper(#{inisial}) 
+			, #{kategori_id} 
+			, #{merk_id} 
+			, #{warna_id} 
+			, #{satuan_id} 
+			, #{satuan2_id} 
+			, #{qty_satuan2} 
+			, #{satuan3_id} 
+			, #{qty_satuan3} 
+			, #{satuan_jual_id} 
+			, #{satuan_beli_id} 
+			, #{harga} 
+			, #{harga_ecer} 
+			, #{diskon} 
+			, #{diskon_ecer}
+			, #{qty_min} 
+			, #{qty_max} 
+			, #{hpp_awal} 
+			, #{last_order} 
+			, #{active} 
+			, #{createby} 
+			, #{createdate} 
+			, upper(#{barcode_ext})
+			, upper(#{barcode_int})
+		)
+	</insert>
+	
+	<insert id="insertPayment" parameterType="Payment" useGeneratedKeys="true" keyColumn="payment_id" keyProperty="payment_id">
+	INSERT INTO MST_PAYMENT (
+	        no_payment
+	        , trans_id
+	        , account_id
+	        , paid_date
+	        , dk
+	        , cara_bayar
+	        , nominal
+	        , no_giro
+	        , due_date
+	        , keterangan
+	        , createby
+	        , createdate
+	        , cancel
+	        , cancelby
+	        , canceldate
+	) values (
+	        upper(#{no_payment})
+	        , #{trans_id}
+	        , #{account_id}
+	        , #{paid_date}
+	        , upper(#{dk})
+	        , #{cara_bayar}
+	        , #{nominal}
+	        , upper(#{no_giro})
+	        , #{due_date}
+	        , upper(#{keterangan})
+	        , #{createby}
+	        , #{createdate}
+	        , #{cancel}
+	        , #{cancelby}
+	        , #{canceldate}
+	)
+	</insert>
+	
+	<insert id="insertStock" parameterType="Stock">
+		INSERT INTO MST_STOCK ( 
+			cabang_id 
+			, item_id 
+			, periode 
+			, saldo_awal 
+			, masuk 
+			, keluar 
+			, qty_order_jual
+			, qty_order_beli 
+			, hpp 
+			, hpp_awal
+		) values ( 
+			#{cabang_id} 
+			, #{item_id} 
+			, #{periode} 
+			, #{saldo_awal} 
+			, #{masuk} 
+			, #{keluar} 
+			, #{qty_order_jual}
+			, #{qty_order_beli}
+			, #{hpp} 
+			, #{hpp_awal}
+		)
+	</insert>
+	
+	<insert id="insertStockHist" parameterType="StockHist">		
+		INSERT INTO MST_STOCK_HIST (
+		        cabang_id
+		        , item_id
+		        , tgl
+		        , no_trans
+		        , dk
+		        , qty
+		        , qty_saldo
+		        , stock_awal
+		        , stock_akhir
+		        , harga
+		        , total_harga
+		        , hpp
+		        , nilai_hpp
+		) values (
+		        #{cabang_id}
+		        , #{item_id}
+		        , #{tgl}
+		        , upper(#{no_trans})
+		        , upper(#{dk})
+		        , #{qty}
+		        , #{qty_saldo}
+		        , #{stock_awal}
+		        , #{stock_akhir}
+		        , #{harga}
+		        , #{total_harga}
+		        , #{hpp}
+		        , #{nilai_hpp}
+		)
+	</insert>
+	
+	<insert id="insertCustomer" parameterType="Customer" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		INSERT INTO MST_CUSTOMER ( 
+			kode 
+			, nama 
+			, alamat 
+			, kota 
+			, contact 
+			, no_telp 
+			, no_hp 
+			, email
+			, no_fax 
+			, limit_hutang 
+			, due_date 
+			, pkp 
+			, flag_ecer
+			, pay_mode
+			, active 
+			, createby 
+			, createdate 
+			, modifyby 
+			, modifydate 
+		) values ( 
+			upper(#{kode}) 
+			, upper(#{nama}) 
+			, upper(#{alamat}) 
+			, upper(#{kota}) 
+			, upper(#{contact}) 
+			, upper(#{no_telp}) 
+			, upper(#{no_hp}) 
+			, upper(#{email}) 
+			, upper(#{no_fax}) 
+			, #{limit_hutang} 
+			, #{due_date} 
+			, #{pkp} 
+			, #{flag_ecer} 
+			, #{pay_mode} 
+			, #{active} 
+			, #{createby} 
+			, #{createdate} 
+			, #{modifyby} 
+			, #{modifydate} 
+		)
+	</insert>
+	
+	<insert id="insertKaryawan" parameterType="Karyawan" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		INSERT INTO MST_KARYAWAN ( 
+			jenis 
+			, nik 
+			, nama 
+			, tgl_masuk 
+			, tgl_keluar 
+			, gaji 
+			, makan 
+			, transport 
+			, active 
+			, createby 
+			, createdate 
+			, modifyby 
+			, modifydate 
+		) values ( 
+			#{jenis} 
+			, upper(#{nik}) 
+			, upper(#{nama}) 
+			, #{tgl_masuk} 
+			, #{tgl_keluar} 
+			, #{gaji} 
+			, #{makan} 
+			, #{transport} 
+			, #{active} 
+			, #{createby} 
+			, #{createdate} 
+			, #{modifyby} 
+			, #{modifydate} 
+		)
+	</insert>
+	
+	<insert id="insertMerk" parameterType="Merk" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		INSERT INTO LST_MERK (
+			ID
+			, NAMA
+			, INISIAL
+			, ACTIVE
+			, CREATEBY
+			, CREATEDATE
+		) VALUES (
+			#{id}
+			, upper(#{nama})
+			, upper(#{inisial})
+			, #{active}
+			, #{createby}
+			, #{createdate}
+		)
+	</insert>
+	
+	<insert id="insertSatuan" parameterType="Satuan" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		INSERT INTO LST_SATUAN (
+			ID
+			, NAMA
+			, INISIAL
+			, ACTIVE
+			, CREATEBY
+			, CREATEDATE
+		) VALUES (
+			#{id}
+			, upper(#{nama})
+			, upper(#{inisial})
+			, #{active}
+			, #{createby}
+			, #{createdate}
+		)
+	</insert>
+	
+	<insert id="insertWarna" parameterType="Warna" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		INSERT INTO LST_WARNA (
+			ID
+			, NAMA
+			, INISIAL
+			, ACTIVE
+			, CREATEBY
+			, CREATEDATE
+		) VALUES (
+			#{id}
+			, upper(#{nama})
+			, upper(#{inisial})
+			, #{active}
+			, #{createby}
+			, #{createdate}
+		)
+	</insert>
+	
+	<insert id="insertConfig" parameterType="Config" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		INSERT INTO LST_CONFIG (
+			ID
+			, JENIS
+			, KETERANGAN
+			, ACTIVE
+			, CREATEBY
+			, CREATEDATE
+		) VALUES (
+			#{id}
+			, #{jenis}
+			, #{keterangan}
+			, #{active}
+			, #{createby}
+			, #{createdate}
+		)
+	</insert>
+	
+	<insert id="insertCabang" parameterType="Cabang" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		INSERT INTO LST_CABANG (
+			ID
+			, KODE
+			, NAMA
+			, JENIS
+			, ACTIVE
+			, CREATEBY
+			, CREATEDATE
+		) VALUES (
+			#{id}
+			, upper(#{kode})
+			, upper(#{nama})
+			, #{jenis}
+			, #{active}
+			, #{createby}
+			, #{createdate}
+		)
+	</insert>
+	
+	<insert id="insertBank" parameterType="Bank" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		INSERT INTO LST_BANK (
+			ID
+			, NAMA
+			, KODE_BI
+			, ACTIVE
+			, CREATEBY
+			, CREATEDATE
+		) VALUES (
+			#{id}
+			, upper(#{nama})
+			, upper(#{kode_bi})
+			, #{active}
+			, #{createby}
+			, #{createdate}
+		)
+	</insert>
+	
+	<insert id="insertAccount" parameterType="Account" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		INSERT INTO LST_ACCOUNT (
+			ID_BANK
+			, COA_ID
+			, CABANG
+			, NO_REK
+			, KURS
+			, ATAS_NAMA
+			, SALDO
+			, ACTIVE
+			, CREATEBY
+			, CREATEDATE
+		) VALUES (
+			#{id_bank}
+			, #{coa_id}
+			, upper(#{cabang})
+			, #{no_rek}
+			, #{kurs}
+			, upper(#{atas_nama})
+			, #{saldo}
+			, #{active}
+			, #{createby}
+			, #{createdate}
+		)
+	</insert>
+	
+	<insert id="insertTrx" parameterType="Trx" useGeneratedKeys="true" keyColumn="trx_id" keyProperty="trx_id">
+		INSERT INTO MST_TRX (
+		        trx_id
+		        , no_trx
+		        , no_voucher
+		        , cash_flow_id
+		        , tgl_trx
+		        , tgl_rk
+		        , tgl_jurnal
+		        , posisi_id
+		        , account_id
+		        , createby
+		        , createdate
+		        , cancel
+		        , cancelby
+		        , canceldate
+		) values (
+		        #{trx_id}
+		        , upper(#{no_trx})
+		        , upper(#{no_voucher})
+		        , #{cash_flow_id}
+		        , #{tgl_trx}
+		        , #{tgl_rk}
+		        , #{tgl_jurnal}
+		        , #{posisi_id}
+		        , #{account_id}
+		        , #{createby}
+		        , #{createdate}
+		        , #{cancel}
+		        , #{cancelby}
+		        , #{canceldate}
+		)
+	</insert>
+	
+	<insert id="insertTrxDet" parameterType="TrxDet">
+		INSERT INTO MST_TRX_DET (
+		        trx_id
+		        , no_urut
+		        , coa_id
+		        , ket
+		        , dk
+		        , jumlah
+		) values (
+		        #{trx_id}
+		        , #{no_urut}
+		        , upper(#{coa_id})
+		        , upper(#{ket})
+		        , upper(#{dk})
+		        , #{jumlah}
+		)
+
+	</insert>
+	
+	<insert id="insertPayroll" parameterType="Payroll" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		INSERT INTO MST_PAYROLL (
+		        karyawan_id
+		        , periode
+		        , tgl_bayar
+		        , gapok
+		        , uang_makan
+		        , uang_transport
+		        , uang_lembur
+		        , bonus
+		        , pot_pinjam
+		        , pot_asuransi
+		        , pot_lain
+		        , tgl_input
+		) values (
+		        #{karyawan_id}
+		        , #{periode}
+		        , #{tgl_bayar}
+		        , #{gapok}
+		        , #{uang_makan}
+		        , #{uang_transport}
+		        , #{uang_lembur}
+		        , #{bonus}
+		        , #{pot_pinjam}
+		        , #{pot_asuransi}
+		        , #{pot_lain}
+		        , #{tgl_input}
+		)
+	</insert>
+	
+	<insert id="insertDelivery" parameterType="Delivery" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		INSERT INTO MST_DELIVERY (
+		        kode
+		        , driver_id
+		        , posisi_id
+		        , tgl_kirim
+		        , tgl_kembali
+		        , keterangan
+		        , createdate
+		        , createby
+		) values (
+		        upper(#{kode})
+		        , #{driver_id}
+		        , #{posisi_id}
+		        , #{tgl_kirim}
+		        , #{tgl_kembali}
+		        , upper(#{keterangan})
+		        , #{createdate}
+		        , #{createby}
+		)
+	</insert>
+	
+	<insert id="insertDeliveryDet" parameterType="DeliveryDet">
+		INSERT INTO MST_DELIVERY_DET (
+		        delivery_id
+		        , trans_id
+		        , status
+		        , tgl_kirim
+		        , tgl_terima
+		        , nama_penerima
+		        , tgl_kembali
+		        , keterangan
+		) values (
+		        #{delivery_id}
+		        , #{trans_id}
+		        , #{status}
+		        , #{tgl_kirim}
+		        , #{tgl_terima}
+		        , upper(#{nama_penerima})
+		        , #{tgl_kembali}
+		        , upper(#{keterangan})
+		)
+	</insert>
+	
+	<insert id="insertCOA" parameterType="COA">
+		INSERT INTO LST_COA (
+		        id
+		        , nama
+		        , level
+		        , post
+		        , dk
+		        , parent
+		        , pl
+		        , active
+		        , createby
+		        , createdate
+		) values (
+		        #{id}
+		        , #{nama}
+		        , #{level}
+		        , #{post}
+		        , #{dk}
+		        , #{parent}
+		        , #{pl}
+		        , #{active}
+		        , #{createby}
+		        , #{createdate}
+		)
+	</insert>
+	
+	<insert id="insertRepTB" parameterType="RepTB">
+		INSERT INTO MST_REP_TB (
+		        periode
+		        , coa_id
+		        , saldo
+		        , total_debet
+		        , total_kredit
+		        , last_update
+		        , createby
+		        , createdate
+		) values (
+		        #{periode}
+		        , upper(#{coa_id})
+		        , #{saldo}
+		        , #{total_debet}
+		        , #{total_kredit}
+		        , #{last_update}
+		        , #{createby}
+		        , #{createdate}
+		)
+	</insert>
+	
+	<insert id="insertClosingPeriode" parameterType="ClosingPeriode" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		INSERT INTO lst_closing_period(
+			type,
+			desc,
+			periode,
+			cabang_id
+		) VALUES	(
+			#{type},
+			#{desc},
+			#{periode},
+			#{cabang_id}
+		)
+	</insert>
+	
+</mapper>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans	xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:p="http://www.springframework.org/schema/p"
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xmlns:util="http://www.springframework.org/schema/util"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+	<!-- Data Source (menggunakan connection pooling dari BoneCP) -->
+	<bean id="dbDataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close"
+ 		p:driverClass="com.mysql.jdbc.Driver"
+ 		p:jdbcUrl="jdbc:mysql://localhost:3306/stock?autoReconnect=true"	
+ 		p:username="dev"
+ 		p:password="linkdev"
+ 		p:idleConnectionTestPeriodInMinutes="60"
+ 		p:idleMaxAgeInMinutes="240"
+ 		p:maxConnectionsPerPartition="30"
+ 		p:minConnectionsPerPartition="10"
+ 		p:partitionCount="3"
+ 		p:acquireIncrement="5"
+ 		p:statementsCacheSize="100"
+ 		p:releaseHelperThreads="3" />
+
+	<!-- Spring transaction manager -->
+ 	<bean id="dbTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" 
+ 		p:dataSource-ref="dbDataSource" /> 
+
+	<!-- Service object yang bersifat transactional --> 
+	<bean id="dbService" class="com.jjtech.estock.service.DbService" /> 
+
+	<!-- enable transaction demarcation with annotations --> 
+	<tx:annotation-driven transaction-manager="dbTransactionManager"/> 
+
+	<!-- MyBatis session factory -->
+	<!-- p:mapperLocations = lokasi sql map -->
+	<!-- p:typeAliasesPackage = semua domain object yang ada disini sudah tidak perlu didefine satu per satu di sql map -->
+	<bean id="dbSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
+		p:dataSource-ref="dbDataSource"
+		p:mapperLocations="classpath*:com/jjtech/estock/persistence/sql/*.xml"
+		p:typeAliasesPackage="com.jjtech.estock.model" />
+
+	<!-- scan for mappers and let them be autowired --> 
+	<!-- p:basePackage = scan semua mapper disini -->
+	<bean id="dbMapperScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer" 
+		p:basePackage="com.jjtech.estock.persistence" 
+		p:sqlSessionFactory-ref="dbSqlSessionFactory" />
+
+</beans>
