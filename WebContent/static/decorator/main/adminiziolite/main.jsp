@@ -15,7 +15,7 @@
 	<link rel="stylesheet" type="text/css" href="${path }/static/css/defaultTheme.css"  media="screen" />
 	<link rel="stylesheet" type="text/css" href="${path }/static/css/myTheme.css"  media="screen" />
 	<link rel="stylesheet" type="text/css" href="${path }/static/js/jquery/themes/base/jquery-ui-timepicker-addon.css"  media="screen" />
-	
+	<link rel="stylesheet" type="text/css" href="${path }/static/css/jquery.window.css"  media="screen" />
   	
 	<link rel="stylesheet" href="${path }/static/decorator/main/pilu/css/base.css" type="text/css" media="screen" />
    	<link rel="stylesheet" id="current-theme" href="${path }/static/decorator/main/pilu/css/themes/default/style.css" type="text/css" media="screen" />
@@ -24,8 +24,6 @@
 	<link rel="stylesheet" media="screen,projection" type="text/css" href="${path}/static/decorator/main/adminiziolite/css/style.css" /> <!-- GRAPHIC THEME -->
 	<link rel="stylesheet" media="screen,projection" type="text/css" href="${path}/static/decorator/main/adminiziolite/css/mystyle.css" /> <!-- WRITE YOUR CSS CODE HERE -->
 	
-	
-	<script type="text/javascript" src="${path}/static/js/default.js"></script>
 	
 	
 	<link rel="stylesheet" href="${path}/static/js/jquery/themes/base/jquery.ui.all.css">
@@ -38,11 +36,14 @@
  	<script type="text/javascript" charset="utf-8" src="${path }/static/js/jquery/picnet.table.filter.min.js"></script>
  	<script type="text/javascript" charset="utf-8" src="${path }/static/js/jquery/jquery.bpopup.min.js"></script>
 	<script type="text/javascript" charset="utf-8" src="${path }/static/js/jquery/jquery.fixedheadertable.js"></script>
- 
+ 	<script type="text/javascript" src="${path}/static/js/jquery/jquery.window.min.js"></script>
+	
+	
 	
 	<script src="${path }/static/js/jquery/ui/jquery.ui.sliderAccess.js"></script>
 	<script src="${path }/static/js/jquery/ui/jquery.ui.timepicker.js"></script>
 	
+	<script type="text/javascript" src="${path}/static/js/default.js"></script>
 	
 	<style>
 	.ui-autocomplete-loading {
@@ -85,7 +86,7 @@
 			
 		});
 		
-	
+		
 	
 		
 		$("table.tbl_repeat input[type=text]").click(function(){

@@ -95,7 +95,7 @@ function groupList(id, form, page, keterangan, sort, sort_type){
 }
 
 function doAction(linknya, title,width,height,reload){
-	$(".element_title").html(title);
+	/*$(".element_title").html(title);
 	$("#element_to_pop_up").css("width",width+ "px");
 	$("#element_to_pop_up").css("height",height+ "px");
 	if(reload==false){
@@ -121,13 +121,41 @@ function doAction(linknya, title,width,height,reload){
             scrollBar:false,
            onClose: function() { location.reload(true);}
 		});
+	}*/
+	if(reload==false){
+		$.window({  title: title,   // title
+				url:linknya,	//link url
+				width: width,           // window width
+				height: height, // window height
+				showModal:true,
+				showRoundCorner:true,
+				minimizable:false,
+				maximizable:false,
+				bookmarkable:false,
+				resizable:false
+			});
+	}else{
+		$.window({  title: title,   // title
+			url:linknya,	//link url
+			width: width,           // window width
+			height: height, // window height
+			onClose: function(wnd) { // a callback function while user click close button
+				location.reload(true);
+			   },
+			showModal:true,
+			showRoundCorner:true,
+			minimizable:false,
+			maximizable:false,
+			bookmarkable:false,
+			resizable:false
+		});
 	}
-    
 
 }
 
 function closeAction(){
-	$("#element_to_pop_up").bPopup().close(); 
+//	$("#element_to_pop_up").bPopup().close(); 
+	$.window.closeAll();
 	return false;
 }
 
