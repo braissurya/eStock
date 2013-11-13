@@ -27,7 +27,7 @@
 }
 
 .window_panel .window_header_normal {
-	/*background: url('../images/header_bg.gif') repeat-x;*/  /* change to use jquery-ui theme instead */
+	background: url('../images/header_bg.gif') repeat-x;  /* change to use jquery-ui theme instead */
 	height: 20px;
 	line-height: 20px;
 	padding: 2px 5px;
@@ -36,7 +36,7 @@
 }
 
 .window_panel .window_header_minimize {
-	/*background: #CFF4F4;*/ /* change to use jquery-ui theme instead */
+	background: #CFF4F4; /* change to use jquery-ui theme instead */
 	cursor: pointer;
 	width: 100%;
 	height: 100%;
@@ -52,7 +52,7 @@
 }
 
 .window_panel .window_header_maximize {
-	/*background: url('../images/header_bg.gif') repeat-x;*/  /* change to use jquery-ui theme instead */
+	background: url('../images/header_bg.gif') repeat-x; /* change to use jquery-ui theme instead */
 	height: 20px;
 	line-height: 20px;
 	padding: 2px 5px;

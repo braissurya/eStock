@@ -405,7 +405,7 @@
 							<img src="${path }/static/decorator/main/pilu/images/icons/arrow-right.gif" alt="Transfer" /> Transfer
 						</button>
 						<span class="text_button_padding"></span>
-						<button class="button" type="button" onclick="if(confirm('Are you sure want to cancel?'))window.location='${path}/keuangan/InputTransaksi/${trx.posisi_id}'">
+						<button class="button" type="button" onclick="if(confirm('Are you sure want to cancel?'))window.location='${path}'">
 							<img src="${path }/static/decorator/main/pilu/images/icons/cross.png" alt="Cancel" /> Cancel
 						</button>
 					</c:if>

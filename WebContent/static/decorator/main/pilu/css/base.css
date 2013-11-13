@@ -96,7 +96,7 @@
   text-decoration:none;
   padding-right :15px;
   color:white;
-  background: url("/static/decorator/main/pilu/images/icons/arrow-right-white.png");
+  background: url("../images/icons/arrow-right-white.png");
   background-repeat: no-repeat;
   background-position: right;
 }
@@ -105,7 +105,7 @@
    font-weight:bolder;
   text-decoration:none;
   padding-right :15px;
-  background: url("/static/decorator/main/pilu/images/icons/arrow-down-white.png");
+  background: url("../images/icons/arrow-down-white.png");
   background-repeat: no-repeat;
   background-position: right;
 }
@@ -114,7 +114,7 @@
    font-weight:bolder;
   text-decoration:none;
   padding-right :15px;
-  background: url("/static/decorator/main/pilu/images/icons/arrow-up-white.png");
+  background: url("../images/icons/arrow-up-white.png");
   background-repeat: no-repeat;
   background-position: right;
 }
@@ -336,7 +336,7 @@ button.button:active, a.button:active {
 .search input.btsearch{
   height:25px;
   padding-left :15px;
-  background: url("/static/decorator/main/pilu/images/icons/search.png");
+  background: url("../images/icons/search.png");
   background-repeat: no-repeat;
   background-position: left;
   border: none;
@@ -366,7 +366,7 @@ button.button:active, a.button:active {
  input.btcollapsed{
   height:25px;
   padding-left :15px;
-  background: url("/static/decorator/main/pilu/images/icons/collapsed.png");
+  background: url("../images/icons/collapsed.png");
   background-repeat: no-repeat;
   background-position: left;
   border: none;
@@ -376,7 +376,7 @@ button.button:active, a.button:active {
  input.btexpanded{
   height:25px;
   padding-left :15px;
-  background: url("/static/decorator/main/pilu/images/icons/expanded.png");
+  background: url("../images/icons/expanded.png");
   background-repeat: no-repeat;
   background-position: left;
   border: none;
@@ -391,7 +391,7 @@ button.button:active, a.button:active {
 
 .pagination input.middle_current {
   padding: 2px 5px;
-  margin-right: 5px; 
+  margin-right: 5px; 	
   display: block;
     float: left;
   border: 1px solid #ddd;

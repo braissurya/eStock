@@ -1952,6 +1952,10 @@
 				<button class="button" type="button" onclick="saveAja();">
                     <img src="${path }/static/decorator/main/pilu/images/icons/tick.png" alt="Save" /> Save
                 </button>
+                <span class="text_button_padding"></span>
+                <button class="button" type="button" onclick="if(confirm('Are you sure want to cancel?'))window.location='${path}/transaksi/${trans.jenistrans }/${trans.pagename }/new'">
+                	<img src="${path }/static/decorator/main/pilu/images/icons/cross.png" alt="Cancel" /> Cancel
+                </button>
                 <c:if test="${not empty trans.no_trans}">
 	                <c:choose>
 	                	<c:when test="${trans.jenis eq 1 or  trans.jenis eq 3}"><!-- Pembelian -->

@@ -62,6 +62,10 @@
 				<button class="button" name="process" type="submit" onclick="if(!confirm('Are you sure want to Closing?'))return false;">
                     <img src="${path }/static/images/icons/process_accept.png" alt="Process Closing" /> Process Closing
             	</button>
+            	<span class="text_button_padding"></span>
+                <button class="button" type="button" onclick="if(confirm('Are you sure want to cancel?'))window.location='${path}'">
+                	<img src="${path }/static/decorator/main/pilu/images/icons/cross.png" alt="Cancel" /> Cancel
+                </button>
         	</div>
    		</div>
    	</form>

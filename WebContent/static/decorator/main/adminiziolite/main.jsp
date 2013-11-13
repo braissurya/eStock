@@ -34,7 +34,6 @@
  	<script type="text/javascript" charset="utf-8" src="${path }/static/js/jquery/jquery.scrollTo.js"></script>
  	<script type="text/javascript" charset="utf-8" src="${path }/static/js/jquery/jquery.formatCurrency-1.4.0.min.js"></script>
  	<script type="text/javascript" charset="utf-8" src="${path }/static/js/jquery/picnet.table.filter.min.js"></script>
- 	<script type="text/javascript" charset="utf-8" src="${path }/static/js/jquery/jquery.bpopup.min.js"></script>
 	<script type="text/javascript" charset="utf-8" src="${path }/static/js/jquery/jquery.fixedheadertable.js"></script>
  	<script type="text/javascript" src="${path}/static/js/jquery/jquery.window.min.js"></script>
 	

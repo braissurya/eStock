@@ -275,6 +275,10 @@
 					<button class="button" type="submit" onclick="if(!confirm('Are you sure want to save?'))return false;">
 	                    <img src="${path }/static/decorator/main/pilu/images/icons/tick.png" alt="Save" /> Save
 	                  </button>
+	                  <span class="text_button_padding"></span>
+	                <button class="button" type="button" onclick="if(confirm('Are you sure want to cancel?'))window.location='${path}'">
+	                	<img src="${path }/static/decorator/main/pilu/images/icons/cross.png" alt="Cancel" /> Cancel
+	                </button>
 	                  <form:hidden path="mode"/>
 	                  <form:hidden path="jenispayment"/>
 	                  <form:hidden path="jenispay"/>
@@ -295,6 +299,10 @@
 						<button class="button add_new" type="button" >
 				    	<img src="${path }/static/decorator/main/pilu/images/icons/add.gif" alt="Save" /> Add
 					</button>
+					<span class="text_button_padding"></span>
+	                <button class="button" type="button" onclick="if(confirm('Are you sure want to cancel?'))window.location='${path}'">
+	                	<img src="${path }/static/decorator/main/pilu/images/icons/cross.png" alt="Cancel" /> Cancel
+	                </button>
 					</div>
 					
 		             

@@ -208,7 +208,7 @@
 			            	</button>
 			                <form:hidden path="mode"/>
 			                <span class="text_button_padding"></span>
-			                <button class="button" type="button" onclick="if(confirm('Are you sure want to cancel?'))window.location='${path}/driver'">
+			                <button class="button" type="button" onclick="if(confirm('Are you sure want to cancel?'))window.location='${path}/delivery'">
 			                	<img src="${path }/static/decorator/main/pilu/images/icons/cross.png" alt="Cancel" /> Cancel
 			                </button>
 			                
