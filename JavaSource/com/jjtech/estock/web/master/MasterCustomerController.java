@@ -80,6 +80,7 @@ public class MasterCustomerController extends ParentController{
 		logger.debug("Halaman:  Master Customer, method: NEW");
 		customer.setMode("NEW");
 		customer.limit_hutang = 0.0;
+		customer.pkp=1;
 		return "master/master_customer_edit";
 	}
 	

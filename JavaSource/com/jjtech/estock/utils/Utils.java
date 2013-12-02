@@ -743,7 +743,7 @@ public class Utils{
 		}else if(jenisPaging.equals("account")){
 			totalData=dbService.selectListAccountPagingCount(search);
 		}else if(jenisPaging.equals("transferstock")){
-			totalData=dbService.selectListTransPagingCount(search, 7, uname, null, null,aksescabang_id);
+			totalData=dbService.selectListTransPagingCount(search, 7, uname, null, null,aksescabang_id,null);
 		}else if(jenisPaging.equals("payment")){
 			if(uname==0){
 				totalData=dbService.selectListPaymentPagingCount(search, 4, 2, null, null);
@@ -822,7 +822,7 @@ public class Utils{
 			listPaging=dbService.selectListAccountPaging(search, offset, rowcount, sort, sort_type);
 		}else if(jenisPaging.equals("transferstock")){
 			if(sort.equals(""))sort="no_trans";
-			listPaging=dbService.selectListTransPaging(search, offset, rowcount, sort, sort_type, 7, uname, null, null,aksescabang_id);
+			listPaging=dbService.selectListTransPaging(search, offset, rowcount, sort, sort_type, 7, uname, null, null,aksescabang_id,null);
 		}else if(jenisPaging.equals("payment")){
 			if(sort.equals(""))sort="no_payment";
 			if(uname==0){

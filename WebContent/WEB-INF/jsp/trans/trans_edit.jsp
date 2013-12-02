@@ -500,7 +500,7 @@
 						}
 					}
 
-					$('#stock').val(ui.item.stock_jual);
+					$('#stock').val(ui.item.stock);
 					$('#satuan').val(ui.item.satuan);
 				}
 			});
@@ -1692,15 +1692,16 @@
 	        <div class="fieldWithErrors">
 	             <label class="label">@Harga</label>
 	        </div>
-	        	<c:choose>
+	        	<%--  harga editable request by TB User
+	        		<c:choose>
 	        		<c:when test="${trans.jenistrans eq \"Penjualan\" }">
 	        			<input type="text" class="text_field read" name="harga" id="harga" readonly="readonly" size="10"/>
 	        		</c:when>
 	        		<c:when test="${trans.jenistrans eq \"Pembelian\" }">
 	        			<input type="text" class="text_field nominal" name="harga" id="harga"  size="8"/>
 	        		</c:when>
-	        	</c:choose>
-
+	        	</c:choose> --%>
+				<input type="text" class="text_field nominal" name="harga" id="harga"  size="8"/>
 	       <span class="description"></span>
 	   </div>
   		
@@ -1785,7 +1786,9 @@
 									<td>${t.urut}<input type="hidden" name="idx" id ="idx" value="${t.urut}" title="${t.urut}"/></td>
 									<td>${t.barcode_ext }<input type="hidden" name="item_id_${t.urut}" id="item_id_${t.urut}" value="${t.item_id }"  title="${t.urut}"/><input type="hidden" name="barcode_ext_${t.urut}" value="${t.barcode_ext }"  title="${t.urut}"/></td>
 								 	<td>${t.item_idKet}<input type="hidden" name="nama_${t.urut}" id="nama_${t.urut}" value="${t.item_idKet}"  title="${t.urut}"/></td>
-								 	<td class="right"><fmt:formatNumber pattern="#,##0">${t.harga}</fmt:formatNumber><input type="hidden" name="harga_${t.urut}" id="harga_${t.urut}" value="${t.harga}"  title="${t.urut}"/></td>
+								 	<%-- <td class="right"><fmt:formatNumber pattern="#,##0">${t.harga}</fmt:formatNumber><input type="hidden" name="harga_${t.urut}" id="harga_${t.urut}" value="${t.harga}"  title="${t.urut}"/></td> --%>
+								 	<td class="right"><input type="text" size=10 name="harga_${t.urut}" id="harga_${t.urut}"  value="<fmt:formatNumber pattern="###0.00">${t.harga}</fmt:formatNumber>"  class="text_field nominal"  title="${t.urut}"/>
+								 	</td>
 								 	<td class="right" colspan="2">
 								 		<input type="text" size="4" name="persen_diskon_${t.urut}" id="persen_diskon_${t.urut}" value="<fmt:formatNumber pattern="###0.00">${t.persen_diskon}</fmt:formatNumber>"  class="text_field number"  title="${t.urut}"/>%
 								 		(<input type="text" size="16" name="diskon_${t.urut}" id="diskon_${t.urut}" value="<fmt:formatNumber pattern="#,##0">${t.jumlah_diskon}</fmt:formatNumber>"  class="text_field nominal"  title="${t.urut}"/>)
@@ -1810,7 +1813,7 @@
 									<td>${t.urut}<input type="hidden" name="idx" id ="idx" value="${t.urut}" title="${t.urut}"/></td>
 									<td>${t.barcode_ext }<input type="hidden" name="item_id_${t.urut}" id="item_id_${t.urut}" value="${t.item_id }"  title="${t.urut}"/><input type="hidden" name="barcode_ext_${t.urut}" value="${t.barcode_ext }"  title="${t.urut}"/></td>
 								 	<td>${t.item_idKet}<input type="hidden" name="nama_${t.urut}" id="nama_${t.urut}" value="${t.item_idKet}"  title="${t.urut}"/></td>
-								 	<td class="right"><input type="text" size=10 name="harga_${t.urut}" id="harga_${t.urut}"  value="<fmt:formatNumber pattern="###0.00">${t.harga}</fmt:formatNumber>"  class="text_field number"  title="${t.urut}"/>
+								 	<td class="right"><input type="text" size=10 name="harga_${t.urut}" id="harga_${t.urut}"  value="<fmt:formatNumber pattern="###0.00">${t.harga}</fmt:formatNumber>"  class="text_field nominal"  title="${t.urut}"/>
 								 	</td>
 								 	<td class="right" colspan="2">
 								 		<input type="text" size="4" name="persen_diskon_${t.urut}" id="persen_diskon_${t.urut}" value="<fmt:formatNumber pattern="###0.00">${t.persen_diskon}</fmt:formatNumber>"  class="text_field number"  title="${t.urut}"/>%
@@ -1861,7 +1864,7 @@
 					</tr>
 					</tfoot>
 				</table>
-				<script type="text/javascript">scrollTable();</script>
+				
 			</c:when>
    			<c:otherwise>
    				<table width="100%" class="tbl_repeat"  >
@@ -1949,9 +1952,11 @@
                   </button> --%>
 			</c:when>
 			<c:otherwise>
-				<button class="button" type="button" onclick="saveAja();">
-                    <img src="${path }/static/decorator/main/pilu/images/icons/tick.png" alt="Save" /> Save
-                </button>
+				<c:if test="${empty trans.print_faktur_date}">
+					<button class="button" type="button" onclick="saveAja();">
+	                    <img src="${path }/static/decorator/main/pilu/images/icons/tick.png" alt="Save" /> Save
+	                </button>
+                </c:if>
                 <span class="text_button_padding"></span>
                 <button class="button" type="button" onclick="if(confirm('Are you sure want to cancel?'))window.location='${path}/transaksi/${trans.jenistrans }/${trans.pagename }/new'">
                 	<img src="${path }/static/decorator/main/pilu/images/icons/cross.png" alt="Cancel" /> Cancel

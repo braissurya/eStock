@@ -209,8 +209,9 @@ public class MainController extends ParentController{
 								"<td>"+rowNum+"<input type=\"hidden\" name=\"idx\" id=\"idx\" value=\""+rowNum+"\" title=\""+rowNum+"\"/></td>"+			 	
 								"<td>"+transDet.barcode_ext+"<input type=\"hidden\" name=\"item_id_"+rowNum+"\" id=\"item_id_"+rowNum+"\" value=\""+transDet.item_id+"\" title=\""+rowNum+"\"/><input type=\"hidden\" name=\"barcode_ext_"+rowNum+"\" value=\""+transDet.barcode_ext+"\" title=\""+rowNum+"\"/></td>"+
 							 	"<td>"+transDet.item_idKet+"<input type=\"hidden\" name=\"nama_"+rowNum+"\" id=\"nama_"+rowNum+"\" value=\""+transDet.item_idKet+"\" title=\""+rowNum+"\"/></td>"+
-							 	"<td class=\"right\">"+Utils.formatNumber("#,##0",transDet.harga)+"<input type=\"hidden\" name=\"harga_"+rowNum+"\" id=\"harga_"+rowNum+"\" value=\""+transDet.harga+"\" title=\""+rowNum+"\"/></td>"+
-							 	"<td class=\"right\" colspan=\"2\"><input type=\"text\" name=\"persen_diskon_"+rowNum+"\" id=\"persen_diskon_"+rowNum+"\" size=\"4\" value=\""+Utils.formatNumber("###0.00",transDet.persen_diskon)+"\"  class=\"text_field number\"  title=\""+rowNum+"\"/>"+
+//							 	"<td class=\"right\">"+Utils.formatNumber("#,##0",transDet.harga)+"<input type=\"hidden\" name=\"harga_"+rowNum+"\" id=\"harga_"+rowNum+"\" value=\""+transDet.harga+"\" title=\""+rowNum+"\"/></td>"+
+								"<td class=\"right\"><input type=\"text\" name=\"harga_"+rowNum+"\" id=\"harga_"+rowNum+"\" value=\""+Utils.formatNumber("#,##0",transDet.harga)+"\" size=\"8\"   class=\"text_field number\" title=\""+rowNum+"\"/></td>"+
+								"<td class=\"right\" colspan=\"2\"><input type=\"text\" name=\"persen_diskon_"+rowNum+"\" id=\"persen_diskon_"+rowNum+"\" size=\"4\" value=\""+Utils.formatNumber("###0.00",transDet.persen_diskon)+"\"  class=\"text_field number\"  title=\""+rowNum+"\"/>"+
 							 	"% (<input type=\"text\" name=\"diskon_"+rowNum+"\" id=\"diskon_"+rowNum+"\" value=\""+Utils.formatNumber("#,##0",transDet.jumlah_diskon)+"\" size=\"15\" class=\"text_field nominal\" title=\""+rowNum+"\"/>)</td>"+
 							 	"<td class=\"right\"><input type=\"text\" id=\"qty_"+rowNum+"\" name=\"qty_"+rowNum+"\" value=\""+transDet.qty+"\" size=\"6\"  class=\"text_field number\" title=\""+rowNum+"\"/></td>"+
 							 	"<td>"+lsItem.get(0).satuan_idNama+"<input type=\"hidden\" name=\"satuan_"+idx+"\" id=\"satuan_"+idx+"\" value=\""+lsItem.get(0).satuan_idNama+"\" title=\""+idx+"\"/></td>"+
@@ -270,7 +271,8 @@ public class MainController extends ParentController{
 								"<td>"+idx+"<input type=\"hidden\" name=\"idx\" id=\"idx\" value=\""+idx+"\" title=\""+idx+"\"/></td>"+			 	
 								"<td>"+lsItem.get(0).barcode_ext+"<input type=\"hidden\" name=\"item_id_"+idx+"\" id=\"item_id_"+idx+"\" value=\""+lsItem.get(0).id+"\" title=\""+idx+"\"/><input type=\"hidden\" name=\"barcode_ext_"+idx+"\" value=\""+kode+"\" title=\""+idx+"\"/></td>"+
 							 	"<td>"+lsItem.get(0).nama+"<input type=\"hidden\" name=\"nama_"+idx+"\" id=\"nama_"+idx+"\" value=\""+lsItem.get(0).nama+"\" title=\""+idx+"\"/></td>"+
-							 	"<td class=\"right\">"+Utils.formatNumber("#,##0",harga)+"<input type=\"hidden\" name=\"harga_"+idx+"\" id=\"harga_"+idx+"\" value=\""+harga+"\" title=\""+idx+"\"/></td>"+
+							 	"<td class=\"right\"><input type=\"text\"   name=\"harga_"+idx+"\" id=\"harga_"+idx+"\" value=\""+Utils.formatNumber("#,##0",harga)+"\" size=\"8\"  class=\"text_field nominal\" title=\""+idx+"\"/></td>"+
+//							 	"<td class=\"right\">"+Utils.formatNumber("#,##0",harga)+"<input type=\"hidden\" name=\"harga_"+idx+"\" id=\"harga_"+idx+"\" value=\""+harga+"\" title=\""+idx+"\"/></td>"+
 								"<td class=\"right\" colspan=\"2\"><input type=\"text\" name=\"persen_diskon_"+idx+"\" id=\"persen_diskon_"+idx+"\"  size=\"4\" value=\""+Utils.formatNumber("###0.00",persen_diskon)+"\"  class=\"text_field number\"  title=\""+idx+"\"/>"+
 							 	"% (<input type=\"text\" name=\"diskon_"+idx+"\" id=\"diskon_"+idx+"\" value=\""+Utils.formatNumber("#,##0",diskon)+"\" size=\"15\"  class=\"text_field nominal\" title=\""+idx+"\"/>)</td>"+
 							 	"<td class=\"right\"><input type=\"text\"   id=\"qty_"+idx+"\" name=\"qty_"+idx+"\" value=\""+qty+"\" size=\"6\"  class=\"text_field number\" title=\""+idx+"\"/></td>"+
@@ -415,7 +417,8 @@ public class MainController extends ParentController{
 								"<td>"+rowNum+"<input type=\"hidden\" name=\"idx\" id=\"idx\" value=\""+rowNum+"\"  title=\""+rowNum+"\"/></td>"+			 	
 								"<td>"+transDet.barcode_ext+"<input type=\"hidden\" name=\"item_id_"+rowNum+"\" id=\"item_id_"+rowNum+"\" value=\""+transDet.item_id+"\" title=\""+rowNum+"\"/><input type=\"hidden\" name=\"barcode_ext_"+rowNum+"\" value=\""+transDet.barcode_ext+"\" title=\""+rowNum+"\"/></td>"+
 							 	"<td>"+transDet.item_idKet+"<input type=\"hidden\" name=\"nama_"+rowNum+"\" id=\"nama_"+rowNum+"\" value=\""+transDet.item_idKet+"\" title=\""+rowNum+"\"/></td>"+
-							 	"<td class=\"right\">"+Utils.formatNumber("#,##0",transDet.harga)+"<input type=\"hidden\" name=\"harga_"+rowNum+"\" id=\"harga_"+rowNum+"\" value=\""+transDet.harga+"\" title=\""+rowNum+"\"/></td>"+
+//							 	"<td class=\"right\">"+Utils.formatNumber("#,##0",transDet.harga)+"<input type=\"hidden\" name=\"harga_"+rowNum+"\" id=\"harga_"+rowNum+"\" value=\""+transDet.harga+"\" title=\""+rowNum+"\"/></td>"+
+								"<td class=\"right\"><input type=\"text\" name=\"harga_"+rowNum+"\" id=\"harga_"+rowNum+"\" value=\""+Utils.formatNumber("#,##0",transDet.harga)+"\" size=\"8\"   class=\"text_field nominal\" title=\""+rowNum+"\"/></td>"+
 							 	"<td class=\"right\" colspan=\"2\" ><input type=\"text\" name=\"persen_diskon_"+rowNum+"\" id=\"persen_diskon_"+rowNum+"\"  size=\"3\" value=\""+Utils.formatNumber("###0.00",transDet.persen_diskon)+"\"  class=\"text_field number\"  title=\""+rowNum+"\"/>"+
 							 	"% (<input type=\"text\" name=\"diskon_"+rowNum+"\" id=\"diskon_"+rowNum+"\" value=\""+Utils.formatNumber("#,##0",transDet.jumlah_diskon)+"\" size=\"8\"  class=\"text_field nominal\" title=\""+rowNum+"\"/>)</td>" +
 							 	"<td class=\"right\"><input type=\"text\"  id=\"qty_"+rowNum+"\" name=\"qty_"+rowNum+"\" value=\""+transDet.qty+"\" size=\"3\"  class=\"text_field number\" title=\""+rowNum+"\"/></td>"+
@@ -428,7 +431,7 @@ public class MainController extends ParentController{
 								"<td>"+rowNum+"<input type=\"hidden\" name=\"idx\" id=\"idx\" value=\""+rowNum+"\" title=\""+rowNum+"\"/></td>"+			 	
 								"<td>"+transDet.barcode_ext+"<input type=\"hidden\" name=\"item_id_"+rowNum+"\" id=\"item_id_"+rowNum+"\" value=\""+transDet.item_id+"\" title=\""+rowNum+"\"/><input type=\"hidden\" name=\"barcode_ext_"+rowNum+"\" value=\""+transDet.barcode_ext+"\" title=\""+rowNum+"\"/></td>"+
 							 	"<td>"+transDet.item_idKet+"<input type=\"hidden\" name=\"nama_"+rowNum+"\" id=\"nama_"+rowNum+"\" value=\""+transDet.item_idKet+"\" title=\""+rowNum+"\"/></td>"+
-							 	"<td class=\"right\"><input type=\"text\" name=\"harga_"+rowNum+"\" id=\"harga_"+rowNum+"\" value=\""+Utils.formatNumber("#,##0",transDet.harga)+"\" size=\"8\"   class=\"text_field number\" title=\""+rowNum+"\"/></td>"+
+							 	"<td class=\"right\"><input type=\"text\" name=\"harga_"+rowNum+"\" id=\"harga_"+rowNum+"\" value=\""+Utils.formatNumber("#,##0",transDet.harga)+"\" size=\"8\"   class=\"text_field nominal\" title=\""+rowNum+"\"/></td>"+
 							 	"<td class=\"right\" colspan=\"2\"><input type=\"text\" name=\"persen_diskon_"+rowNum+"\" id=\"persen_diskon_"+rowNum+"\" size=\"3\" value=\""+Utils.formatNumber("###0.00",transDet.persen_diskon)+"\"  class=\"text_field number\"  title=\""+rowNum+"\"/>"+
 							 	"% (<input type=\"text\" name=\"diskon_"+rowNum+"\" id=\"diskon_"+rowNum+"\" value=\""+Utils.formatNumber("#,##0",transDet.jumlah_diskon)+"\" size=\"8\" class=\"text_field nominal\" title=\""+rowNum+"\"/>)</td>"+
 							 	"<td class=\"right\"><input type=\"text\" id=\"qty_"+rowNum+"\" name=\"qty_"+rowNum+"\" value=\""+transDet.qty+"\" size=\"3\"  class=\"text_field number\" title=\""+rowNum+"\"/></td>"+

@@ -80,6 +80,7 @@ public class MasterSupplierController extends ParentController{
 	public String insert(@ModelAttribute("supplier") Supplier supplier) {
 		logger.debug("Halaman:  Master Supplier, method: NEW");
 		supplier.setMode("NEW");
+		supplier.pkp=1;
 		return "master/master_supplier_edit";
 	}
 	

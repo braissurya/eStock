@@ -147,7 +147,7 @@ public class InputTransController extends ParentController {
 		//perhitungan paging
 		rowcount = ServletRequestUtils.getIntParameter(request, "rowcount",5);
 
-		totalData=dbService.selectListTransPagingCount(search, jenis, posisi_id, null, no_trans,aksescabang_id);
+		totalData=dbService.selectListTransPagingCount(search, jenis, posisi_id, null, no_trans,aksescabang_id,null);
 
 		totalPage = new Double(Math.ceil(new Double(totalData)/ new Double(rowcount))).intValue(); //jml total halaman = (jumlah data / rowcount) dibulatkan keatas
 		page = ServletRequestUtils.getIntParameter(request, "page", 1); //halaman ke X
@@ -158,7 +158,7 @@ public class InputTransController extends ParentController {
 
 		if(offset<0)offset=0;
 
-		listPaging=dbService.selectListTransPaging(search, offset, rowcount, sort, sort_type, jenis, posisi_id, null, no_trans,aksescabang_id);
+		listPaging=dbService.selectListTransPaging(search, offset, rowcount, sort, sort_type, jenis, posisi_id, null, no_trans,aksescabang_id,null);
 
 		if(no_trans!=null&&!listPaging.isEmpty()&&pagename.toLowerCase().equals("ordertransfer")){
 			model.addAttribute("trans_id", listPaging.get(0).trans_id);

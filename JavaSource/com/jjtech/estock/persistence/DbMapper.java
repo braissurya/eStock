@@ -169,9 +169,9 @@ public interface DbMapper {
 			@Param("search") String search,
 			@Param("offset") Integer offset, @Param("rowcount") Integer rowcount,
 			@Param("sort") String sort, @Param("sort_type") String sort_type,@Param("jenis") Integer jenis,
-			@Param("posisi_id") Integer posisi_id,@Param("trans_id") Integer trans_id,@Param("no_trans")String no_trans,@Param("retail_id") Integer retail_id) throws DataAccessException;
+			@Param("posisi_id") Integer posisi_id,@Param("trans_id") Integer trans_id,@Param("no_trans")String no_trans,@Param("retail_id") Integer retail_id,@Param("approval") Integer approval) throws DataAccessException;
 	public Integer selectListTransPagingCount(@Param("search")String search,@Param("jenis") Integer jenis,
-			@Param("posisi_id") Integer posisi_id,@Param("trans_id") Integer trans_id,@Param("no_trans")String no_trans,@Param("retail_id") Integer retail_id) throws DataAccessException;
+			@Param("posisi_id") Integer posisi_id,@Param("trans_id") Integer trans_id,@Param("no_trans")String no_trans,@Param("retail_id") Integer retail_id,@Param("approval") Integer approval) throws DataAccessException;
 
 	public List<TransDet> selectListTransDet(@Param("trans_id") Integer trans_id,
 			@Param("urut") Integer urut,@Param("barcode_ext") String barcode_ext,@Param("item_id") Integer item_id,@Param("lsitem_id") List<Integer> lsitem_id) throws DataAccessException;

@@ -894,11 +894,11 @@ public class DbService {
 	public List<Trans> selectListTrans(Integer jenis,Integer posisi_id,Integer trans_id,String no_trans, Integer retail_id){
 		return dbMapper.selectListTrans(jenis, posisi_id, trans_id, no_trans,retail_id);
 	}
-	public List<Trans> selectListTransPaging(String search,	Integer offset,Integer rowcount,String sort, String sort_type,Integer jenis,Integer posisi_id,Integer trans_id,String no_trans, Integer retail_id) {
-		return dbMapper.selectListTransPaging(search, offset, rowcount, sort, sort_type, jenis, posisi_id, trans_id, no_trans,retail_id);
+	public List<Trans> selectListTransPaging(String search,	Integer offset,Integer rowcount,String sort, String sort_type,Integer jenis,Integer posisi_id,Integer trans_id,String no_trans, Integer retail_id, Integer approval) {
+		return dbMapper.selectListTransPaging(search, offset, rowcount, sort, sort_type, jenis, posisi_id, trans_id, no_trans,retail_id,approval);
 	}
-	public Integer selectListTransPagingCount(String search,Integer jenis,Integer posisi_id,Integer trans_id,String no_trans, Integer retail_id){
-		return dbMapper.selectListTransPagingCount(search, jenis, posisi_id, trans_id, no_trans,retail_id);
+	public Integer selectListTransPagingCount(String search,Integer jenis,Integer posisi_id,Integer trans_id,String no_trans, Integer retail_id, Integer approval){
+		return dbMapper.selectListTransPagingCount(search, jenis, posisi_id, trans_id, no_trans,retail_id,approval);
 	}
 
 	public List<TransDet> selectListTransDet(Integer trans_id,Integer urut,String barcode_ext,Integer item_id, List<Integer> lsitem_id) {
@@ -1386,6 +1386,7 @@ public class DbService {
 				}else{
 					throw new RuntimeException ("Position Transaction not found");
 				}
+				pesan = messageSource.getMessage("submitsuccess", new String[]{trans.pagename+" "+trans.jenistrans,""+trans.no_trans,"ditransfer "+trx},null);
 			}else if(trans.jenis==1){//Pembelian
 				if(trans.posisi_id==1){
 //					if(trans.print_trans_date==null){
@@ -1464,6 +1465,7 @@ public class DbService {
 						trxdet.ket="Hutang Dagang";
 						dbMapper.insertTrxDet(trxdet);
 					}
+				pesan = messageSource.getMessage("submitsuccess", new String[]{trans.pagename+" "+trans.jenistrans,""+trans.no_trans,"ditransfer "+trx},null);
 			}else if(trans.jenis==5){
 				if(trans.posisi_id==1){//retur pembelian
 					
@@ -1481,6 +1483,7 @@ public class DbService {
 							trx+="Gudang";
 						}
 					}
+				pesan = messageSource.getMessage("submitsuccess", new String[]{trans.pagename+" "+trans.jenistrans,""+trans.no_trans,"ditransfer "+trx},null);
 			}else if(trans.jenis==6){
 				if(trans.posisi_id==1){//retur Penjualan
 					
@@ -1498,6 +1501,7 @@ public class DbService {
 							trx+="Gudang";
 						}
 					}
+				pesan = messageSource.getMessage("submitsuccess", new String[]{trans.pagename+" "+trans.jenistrans,""+trans.no_trans,"ditransfer "+trx},null);
 			}else if(trans.jenis==7){
 				if(trans.posisi_id==1){
 					trans.posisi_id=2;
@@ -1530,12 +1534,14 @@ public class DbService {
 					trans.posisi_id=4;
 					trans.tgl_terima_trans=dbMapper.selectSysdate();
 				}
+				pesan = messageSource.getMessage("submitsuccess", new String[]{trans.pagename+" "+trans.jenistrans,""+trans.no_trans,"ditransfer "+trx},null);
 			}
 
 			dbMapper.updateTrans(trans);
 			
 			if(pesan==null)pesan="ga ada";
-			else if(pesan.equals("ga ada"))pesan="ga ada";
+			
+			if(pesan.equals("ga ada"))pesan="ga ada";
 			else{
 				pesan = messageSource.getMessage("submitsuccess", new String[]{trans.pagename+" "+trans.jenistrans,""+trans.no_trans,"ditransfer "+trx},null);
 			
@@ -2920,6 +2926,18 @@ public class DbService {
 		}else{
 			throw new RuntimeException ("WARNING !! Metode Save tidak ditemukan untuk Mode "+coa.mode);
 		}
+
+		return pesan;
+	}
+	
+	
+	public String saveTransApproval(Trans trans, User currentUser){
+		logger.debug("saveTransApproval(Trans trans, User currentUser)");
+
+		String pesan;
+
+		dbMapper.updateTrans(trans);
+		pesan=messageSource.getMessage("submitsuccess", new String[]{"Approval Trans No",""+trans.no_trans,"diubah"},null);
 
 		return pesan;
 	}

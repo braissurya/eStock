@@ -1649,9 +1649,7 @@
 
 								 	<td class="right" ><span id="subtotal_${t.urut}" class="subTotal"><fmt:formatNumber pattern="#,##0">${t.subTotal_harga}</fmt:formatNumber></span><input type="hidden" name="subTotal_harga_${t.urut}" id="subTotal_harga_${t.urut}" value="${t.subTotal_harga}"  title="${t.urut}"/></td>
 								 	<td >
-								 		<a href="#" class="remove" rel="${t.urut}">
-					                      <img src="${path }/static/decorator/main/pilu/images/icons/delete.png" alt="Delete" />
-					                   </a>
+								 		
 								 	</td>
 							 	</tr>
 							</c:forEach>
@@ -1675,9 +1673,7 @@
 
 								 	<td class="right" ><span id="subtotal_${t.urut}" class="subTotal"><fmt:formatNumber pattern="#,##0">${t.subTotal_harga}</fmt:formatNumber></span><input type="hidden" name="subTotal_harga_${t.urut}" id="subTotal_harga_${t.urut}" value="${t.subTotal_harga}"  title="${t.urut}"/></td>
 								 	<td >
-								 		<a href="#" class="remove" rel="${t.urut}">
-					                      <img src="${path }/static/decorator/main/pilu/images/icons/delete.png" alt="Delete" />
-					                   </a>
+								 		
 								 	</td>
 							 	</tr>
 							</c:forEach>

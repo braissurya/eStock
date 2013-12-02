@@ -547,6 +547,9 @@
 				<if test="retail_id != null">
 					and t.retail_id=#{retail_id}
 				</if>
+				<if test="approval != null">
+					and t.jenis > 2 and t.print_faktur_date is not null
+				</if>
 		) x
 		<if test="search != null">
 		where (no_trans LIKE CONCAT('%', #{search}, '%') OR
@@ -608,6 +611,9 @@
 			</if>
 			<if test="retail_id != null">
 				and t.retail_id=#{retail_id}
+			</if>
+			<if test="approval != null">
+				and t.jenis > 2 and t.print_faktur_date is not null
 			</if>
 		) x
 		<if test="search != null">
@@ -1389,7 +1395,7 @@
 	</select>
 
 	<select id="selectHutangCustomer" parameterType="Integer" resultType="Double">
-		SELECT sum(remain) total_hutang 
+		SELECT ifnull(sum(remain),0) total_hutang 
 		FROM mst_trans 
 		WHERE remain > 0 
 		  AND cancel=0 

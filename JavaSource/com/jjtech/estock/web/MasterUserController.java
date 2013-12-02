@@ -85,6 +85,7 @@ public class MasterUserController extends ParentController {
 		user.setMode("NEW");
 		user.setGroup_user_id(uname);
 		user.setPassword("123bcd");
+		user.flag_approval=0;
 		if(uname==null)uname=-1;
 		model.addAttribute("groupuserid", uname);
 		model.addAttribute("groupuserName", uname==-1?"":dbService.selectListGroupUser(uname, null, 1, 1).get(0).getNama());

@@ -4,6 +4,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>POS System - ${company.name} </title>
+
+<script type="text/javascript">
+$(document).ready(function(){
+$(document).pngFix( );
+});
+</script>
 <link rel="stylesheet" href="${path}/static/decorator/login/internet_dreams/css/screen.css" type="text/css" media="screen" title="default" />
 <!--  jquery core -->
 <script src="${path}/static/decorator/login/internet_dreams/js/jquery/jquery-1.4.1.min.js" type="text/javascript"></script>
@@ -13,11 +19,7 @@
 
 <!-- MUST BE THE LAST SCRIPT IN <HEAD></HEAD></HEAD> png fix -->
 <script src="${path}/static/decorator/login/internet_dreams/js/jquery/jquery.pngFix.pack.js" type="text/javascript"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-$(document).pngFix( );
-});
-</script>
+
 </head>
 <body id="login-bg"> 
 
