@@ -1966,14 +1966,14 @@
 	                	<c:when test="${trans.jenis eq 1 or  trans.jenis eq 3}"><!-- Pembelian -->
 	                		
 	                			<c:if test="${trans.posisi_id gt 0}"><!-- Order -->
-	                				<button class="button" type="button" onclick="if(confirm('Are you sure want to Print Purchasing Order?'))doAction('${path}/report/print_po/${trans.no_trans }', 'Print Purchasing Order',900,500);">
+	                				<button class="button" type="button" onclick="if(confirm('Are you sure want to Print Purchasing Order?'))doAction('${path}/report/print_po/${trans.no_trans }', 'Print Purchasing Order',900,500,true,true);">
 					                    <img src="${path }/static/decorator/main/pilu/images/icons/noteprint.gif" alt="Print Purchasing Order" /> Print Purchasing Order
 					                </button>
 	                			</c:if>
 	                			<c:if test="${trans.posisi_id eq 2 and trans.jenis eq 3}"><!-- Pembelian -->
 	                				<c:choose>
 		                				<c:when test="${trans.pay_mode eq 2}">
-			                				 <button class="button" type="button" onclick="if(confirm('Are you sure want to Print Faktur?'))doAction('${path}/report/print_faktur/${trans.no_trans }', 'Print Faktur',900,500);">
+			                				 <button class="button" type="button" onclick="if(confirm('Are you sure want to Print Faktur?'))doAction('${path}/report/print_faktur/${trans.no_trans }', 'Print Faktur',900,500,true,true);">
 							                    <img src="${path }/static/decorator/main/pilu/images/icons/noteprint.gif" alt="Print Faktur" /> Print Faktur
 							                </button>
 							                <c:if test="${not empty trans.print_faktur_date  and trans.posisi_id eq 2}">
@@ -1983,7 +1983,7 @@
 							                </c:if>
 						                </c:when>  
 						                <c:otherwise>
-						                	<button class="button" type="button" onclick="if(confirm('Are you sure want to Print Faktur?'))doAction('${path}/report/print_faktur/${trans.no_trans }', 'Print Faktur',900,500);">
+						                	<button class="button" type="button" onclick="if(confirm('Are you sure want to Print Faktur?'))doAction('${path}/report/print_faktur/${trans.no_trans }', 'Print Faktur',900,500,true,true);">
 							                    <img src="${path }/static/decorator/main/pilu/images/icons/noteprint.gif" alt="Print Faktur" /> Print Faktur
 							                </button>
 						                	<c:if test="${not empty trans.print_faktur_date  and trans.posisi_id eq 2}">
@@ -1997,7 +1997,7 @@
 	                			
 	                	</c:when>
 	                	<c:when test="${trans.jenis eq 5 }"><!-- Retur Pembelian-->
-	                		<button class="button" type="button" onclick="if(confirm('Are you sure want to Print Surat Retur Pembelian?'))doAction('${path}/report/print_retur_po/${trans.no_trans }', 'Print Surat Retur Pembelian',900,500);">
+	                		<button class="button" type="button" onclick="if(confirm('Are you sure want to Print Surat Retur Pembelian?'))doAction('${path}/report/print_retur_po/${trans.no_trans }', 'Print Surat Retur Pembelian',900,500,true,true);">
 			                    <img src="${path }/static/decorator/main/pilu/images/icons/noteprint.gif" alt="Print Surat Retur Pembelian" /> Print Surat Retur Pembelian
 			                </button>
 			                <c:if test="${ not empty trans.print_trans_date and trans.posisi_id eq 1}">
@@ -2007,7 +2007,7 @@
 		                	</c:if>
 	                	</c:when>
 	                	<c:when test="${trans.jenis eq 6 }"><!-- Retur Penjualan-->
-	                		<button class="button" type="button" onclick="if(confirm('Are you sure want to Print Surat Retur Penjualan?'))doAction('${path}/report/print_retur_do/${trans.no_trans }', 'Print Surat Retur Penjualan',900,500);">
+	                		<button class="button" type="button" onclick="if(confirm('Are you sure want to Print Surat Retur Penjualan?'))doAction('${path}/report/print_retur_do/${trans.no_trans }', 'Print Surat Retur Penjualan',900,500,true,true);">
 			                    <img src="${path }/static/decorator/main/pilu/images/icons/noteprint.gif" alt="Print Surat Retur Penjualan" /> Print Surat Retur Penjualan
 			                </button>
 			                 <c:if test="${ not empty trans.print_trans_date and trans.posisi_id eq 1}">
@@ -2019,22 +2019,22 @@
 	                	<c:when test="${trans.jenis eq 2 or  trans.jenis eq 4}"><!-- Penjualan -->
 
 	                			<c:if test="${trans.posisi_id gt 0}"><!-- Order -->
-                					<button class="button" type="button" onclick="if(confirm('Are you sure want to Print Form Order?'))doAction('${path}/report/print_form_order/${trans.no_trans }', 'Print Form Order',900,500);">
+                					<button class="button" type="button" onclick="if(confirm('Are you sure want to Print Form Order?'))doAction('${path}/report/print_form_order/${trans.no_trans }', 'Print Form Order',900,500,true,true);">
 					                    <img src="${path }/static/decorator/main/pilu/images/icons/noteprint.gif" alt="Print Form Order" /> Print Form Order
 					                </button>
 	                			</c:if>
                 				<c:if test="${trans.posisi_id gt 1 and trans.jenis eq 4}"><!-- Penjualan -->
-	                				 <button class="button" type="button" onclick="if(confirm('Are you sure want to Print Delivery Order?'))doAction('${path}/report/print_do/${trans.no_trans }', 'Print Delivery Order',900,500);">
+	                				 <button class="button" type="button" onclick="if(confirm('Are you sure want to Print Delivery Order?'))doAction('${path}/report/print_do/${trans.no_trans }', 'Print Delivery Order',900,500,true,true);">
 					                    <img src="${path }/static/decorator/main/pilu/images/icons/noteprint.gif" alt="Print Delivery Order" /> Print Delivery Order
 					                </button>
 					                <c:choose>
 					                	 <c:when test="${trans.pay_mode eq 2}">
-							                 <button class="button" type="button" onclick="if(confirm('Are you sure want to Print Faktur?'))doAction('${path}/report/print_faktur/${trans.no_trans }', 'Print Faktur',900,500);">
+							                 <button class="button" type="button" onclick="if(confirm('Are you sure want to Print Faktur?'))doAction('${path}/report/print_faktur/${trans.no_trans }', 'Print Faktur',900,500,true,true);">
 							                    <img src="${path }/static/decorator/main/pilu/images/icons/noteprint.gif" alt="Print Faktur" /> Print Faktur
 							                </button>
 							                <c:if test="${not empty trans.print_faktur_date and not empty trans.print_trans_date and trans.posisi_id eq 2}">
 							                	<c:if test="${trans.customer.outoflimit eq \"true\"   and empty trans.approveby }">
-							                		 <button class="button" type="button" onclick="doAction('${path}/approval?no_trans=${trans.no_trans}', ' Approval Hutang',1000,500);;">
+							                		 <button class="button" type="button" onclick="doAction('${path}/approval?no_trans=${trans.no_trans}', ' Approval Hutang',1000,500);">
 									                    <img src="${path }/static/decorator/main/pilu/images/icons/filetick.gif" alt=" Approval Hutang" /> Approval Hutang
 									                </button>
 							                	</c:if>
@@ -2044,12 +2044,12 @@
 						                	</c:if>
 										</c:when>
 										<c:otherwise>
-											 <button class="button" type="button" onclick="if(confirm('Are you sure want to Print Faktur?'))doAction('${path}/report/print_faktur/${trans.no_trans }', 'Print Faktur',900,500);">
+											 <button class="button" type="button" onclick="if(confirm('Are you sure want to Print Faktur?'))doAction('${path}/report/print_faktur/${trans.no_trans }', 'Print Faktur',900,500,true,true);">
 							                    <img src="${path }/static/decorator/main/pilu/images/icons/noteprint.gif" alt="Print Faktur" /> Print Faktur
 							                </button>
 											 <c:if test="${not empty trans.print_faktur_date and  not empty trans.print_trans_date and trans.posisi_id eq 2}">
 											 	 <c:if test="${trans.customer.outoflimit eq \"true\" }">
-							                		 <button class="button" type="button" onclick="doAction('${path}/approval?no_trans=${trans.no_trans}', ' Approval Hutang',1000,500);;">
+							                		 <button class="button" type="button" onclick="doAction('${path}/approval?no_trans=${trans.no_trans}', ' Approval Hutang',1000,500);">
 									                    <img src="${path }/static/decorator/main/pilu/images/icons/filetick.gif" alt=" Approval Hutang" /> Approval Hutang
 									                </button>
 									             </c:if>
@@ -2064,7 +2064,7 @@
 
 	                			</c:if>
 	                			<c:if test="${trans.posisi_id gt 2}"><!-- Payment -->
-	                				 <button class="button" type="button" onclick="if(confirm('Are you sure want to Print Purchasing Order?'))doAction('${path}/report/print_po/${trans.no_trans }', 'Print Purchasing Order',900,500);">
+	                				 <button class="button" type="button" onclick="if(confirm('Are you sure want to Print Purchasing Order?'))doAction('${path}/report/print_po/${trans.no_trans }', 'Print Purchasing Order',900,500,true,true);">
 					                    <img src="${path }/static/decorator/main/pilu/images/icons/noteprint.gif" alt="Print Purchasing Order" /> Print Purchasing Order
 					                </button>
 

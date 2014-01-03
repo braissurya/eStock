@@ -94,7 +94,7 @@ function groupList(id, form, page, keterangan, sort, sort_type){
 	}
 }
 
-function doAction(linknya, title,width,height,reload){
+function doAction(linknya, title,width,height,reload,popup){
 	/*$(".element_title").html(title);
 	$("#element_to_pop_up").css("width",width+ "px");
 	$("#element_to_pop_up").css("height",height+ "px");
@@ -122,20 +122,13 @@ function doAction(linknya, title,width,height,reload){
            onClose: function() { location.reload(true);}
 		});
 	}*/
-	if(reload==false){
-		$.window({  title: title,   // title
-				url:linknya,	//link url
-				width: width,           // window width
-				height: height, // window height
-				showModal:true,
-				showRoundCorner:true,
-				minimizable:false,
-				maximizable:false,
-				bookmarkable:false,
-				resizable:false
-			});
-	}else{
-		$.window({  title: title,   // title
+    	if(popup==true){
+    	    if(reload==true)timedRefresh(1000);
+    	    popWin(linknya, height, width,'no','no');    	    
+    	    
+    	}else{
+        	if(reload==true){
+        	    $.window({  title: title,   // title
 			url:linknya,	//link url
 			width: width,           // window width
 			height: height, // window height
@@ -148,8 +141,22 @@ function doAction(linknya, title,width,height,reload){
 			maximizable:false,
 			bookmarkable:false,
 			resizable:false
-		});
-	}
+        	    });
+        	}else{
+        	    $.window({  title: title,   // title
+			url:linknya,	//link url
+			width: width,           // window width
+			height: height, // window height
+			showModal:true,
+			showRoundCorner:true,
+			minimizable:false,
+			maximizable:false,
+			bookmarkable:false,
+			resizable:false
+        	    });
+        	   
+        	}
+    	}
 
 }
 

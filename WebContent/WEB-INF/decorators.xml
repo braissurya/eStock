@@ -7,9 +7,13 @@
 		<pattern>/static/*</pattern>
 	</decorator>
 	
+	
+	
 	<decorator name="login" page="login/internet_dreams/login.jsp">
 		<pattern>/login*</pattern>
 	</decorator>
+	
+	
 	
 	<decorator name="excludemain" page="main/adminiziolite/excludemain.jsp">
 		<pattern>/stockall</pattern>

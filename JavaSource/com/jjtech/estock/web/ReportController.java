@@ -159,6 +159,25 @@ public class ReportController extends ParentController{
 			exporter.exportReport();
 			return null;
 
+		
+		}else if(format.equalsIgnoreCase("htmlprint")){
+			JRHtmlExporter exporter = new JRHtmlExporter();
+
+			exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+			exporter.setParameter(JRExporterParameter.OUTPUT_WRITER, response.getWriter());
+			//HTML Specific parameters
+			exporter.setParameter(JRHtmlExporterParameter.IMAGES_URI, request.getContextPath() + "/jasper/image?image=");
+			exporter.setParameter(JRHtmlExporterParameter.IGNORE_PAGE_MARGINS, true); //biar gak terlalu banyak white space
+			exporter.setParameter(JRHtmlExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, true); //biar gak terlalu banyak white space
+			exporter.setParameter(JRHtmlExporterParameter.BETWEEN_PAGES_HTML, ""); //biar tidak ada paging (khusus html)
+			exporter.setParameter(JRHtmlExporterParameter.HTML_HEADER, "<html><head>"
+				+ "<script type=\"text/javascript\">window.print();</script><style media=\"screen\">.printing{display:block;}</style><style media=\"print\">.printing{display:none;}</style><style></style></head><body>"
+				+ "");
+			exporter.setParameter(JRHtmlExporterParameter.HTML_FOOTER, "<input type=\"button\" class=\"printing\" value=\"print\" onclick=\"window.print();\"/></body></html>");
+
+			exporter.exportReport();
+			return null;
+
 		//format selain HTML dan TXT
 		}else{
 			return "redirect:/jasper/" + format; //redirect ke JasperReports Servlet sesuai format
@@ -191,7 +210,7 @@ public class ReportController extends ParentController{
 		//currently logged in user
 
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("format","pdf"); //format report
+		params.put("format","htmlprint"); //format report
 		params.put("trans_id",trans.trans_id);
 
 		Date sysdate=dbService.selectSysdate();
@@ -230,7 +249,7 @@ public class ReportController extends ParentController{
 
 
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("format","pdf"); //format report
+		params.put("format","htmlprint"); //format report
 		params.put("trans_id",trans.trans_id);
 
 		Date sysdate=dbService.selectSysdate();
@@ -273,7 +292,7 @@ public class ReportController extends ParentController{
 
 
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("format","pdf"); //format report
+		params.put("format","htmlprint"); //format report
 		params.put("trans_id",trans.trans_id);
 
 		Date sysdate=dbService.selectSysdate();
@@ -314,7 +333,7 @@ public class ReportController extends ParentController{
 		if(Utils.nvl(currentUser.flag_akses_all)!=1)aksescabang_id=currentUser.cabang_id;
 
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("format","pdf"); //format report
+		params.put("format","htmlprint"); //format report
 		
 		List<String> listFile=new ArrayList<String>();
 		Date sysdate=dbService.selectSysdate();
@@ -374,7 +393,7 @@ public class ReportController extends ParentController{
 		//currently logged in user
 
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("format","pdf"); //format report
+		params.put("format","htmlprint"); //format report
 		params.put("trans_id",trans.trans_id);
 
 		Date sysdate=dbService.selectSysdate();
@@ -416,7 +435,7 @@ public class ReportController extends ParentController{
 
 
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("format","pdf"); //format report
+		params.put("format","htmlprint"); //format report
 		params.put("trans_id",trans.trans_id);
 
 		Date sysdate=dbService.selectSysdate();
@@ -497,7 +516,7 @@ public class ReportController extends ParentController{
 		}
 		
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("format","pdf");
+		params.put("format","htmlprint");
 		params.put("payment_id",payment_id);
 		
 		return generateReport(jenisReport, params, session, request, response);
@@ -523,7 +542,7 @@ public class ReportController extends ParentController{
 		}
 
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("format","pdf"); //format report
+		params.put("format","htmlprint"); //format report
 		params.put("trans_id",trans.trans_id);
 
 		Date sysdate=dbService.selectSysdate();

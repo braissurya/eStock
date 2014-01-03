@@ -240,7 +240,7 @@
 							                      <img src="${path }/static/decorator/main/pilu/images/icons/view.png" alt="View" />
 							                    </a>
 							                   <c:if test="${jenistrans eq \"Penjualan\" and pagename eq \"Order\" }">
-							                   		 <a href="javascript:if(confirm('Are you sure want to Print Form Order?'))doAction('${path}/report/print_form_order/${p.no_trans}', 'Print Form Order',700,500);" title="Print Form Order">
+							                   		 <a href="javascript:if(confirm('Are you sure want to Print Form Order?'))doAction('${path}/report/print_form_order/${p.no_trans}', 'Print Form Order',700,500,false,true);" title="Print Form Order">
 								                      <img src="${path }/static/decorator/main/pilu/images/icons/noteprint.gif" alt="Print Form Order" />
 								                    </a>
 							                   		<%--  <c:if test="${not empty p.print_order_form }">
