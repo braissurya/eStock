@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created using JasperAssistant (http://www.jasperassistant.com) -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="laporan_stock_limit" pageWidth="820" pageHeight="842" columnWidth="780" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
+	<property name="com.jasperassistant.designer.DataSource" value="stock"/>
+	<property name="com.jasperassistant.designer.Grid" value="false"/>
+	<property name="com.jasperassistant.designer.SnapToGrid" value="true"/>
+	<property name="com.jasperassistant.designer.GridWidth" value="5"/>
+	<property name="com.jasperassistant.designer.GridHeight" value="5"/>
+	<property name="com.jasperassistant.designer.Margins" value="true"/>
+	<property name="com.jasperassistant.designer.Rulers" value="true"/>
+	<property name="com.jasperassistant.designer.SnapToGuides" value="true"/>
+	<parameter name="username" class="java.lang.String"/>
+	<parameter name="param" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="beg_date" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT s.*, kat.inisial kategori, merk.inisial merk, war.inisial warna, 
+	   sat.inisial sat1, sat2.inisial sat2, sat3.inisial sat3, satj.inisial satjual, satb.inisial satbeli,
+		item.barcode_ext, item.nama item_name, item.kategori_id, item.merk_id, item.warna_id, item.qty_max, item.qty_min
+FROM mst_stock s, lst_item item
+	 LEFT JOIN lst_satuan sat ON item.satuan_id = sat.id
+	 LEFT JOIN lst_satuan sat2 ON item.satuan2_id = sat2.id
+	 LEFT JOIN lst_satuan sat3 ON item.satuan3_id = sat3.id
+	 LEFT JOIN lst_satuan satj ON item.satuan_jual_id = satj.id
+	 LEFT JOIN lst_satuan satb ON item.satuan_beli_id = satb.id
+	 LEFT JOIN lst_kategori kat ON item.kategori_id = kat.id
+	 LEFT JOIN lst_merk merk ON item.merk_id = merk.id
+	 LEFT JOIN lst_warna war ON item.warna_id = war.id
+WHERE s.item_id = item.id
+AND ( item.active = 1 or s.saldo_awal + s.masuk - s.keluar > 0 or qty_order_beli > 0 or qty_order_jual > 0 )
+AND ( item.qty_min > (s.saldo_awal + s.masuk - s.keluar) )
+$P!{param}
+;]]>
+	</queryString>
+	<field name="barcode_ext" class="java.lang.String"/>
+	<field name="cabang_id" class="java.lang.Integer"/>
+	<field name="hpp" class="java.math.BigDecimal"/>
+	<field name="hpp_awal" class="java.math.BigDecimal"/>
+	<field name="item_id" class="java.lang.Integer"/>
+	<field name="item_name" class="java.lang.String"/>
+	<field name="kategori" class="java.lang.String"/>
+	<field name="kategori_id" class="java.lang.Integer"/>
+	<field name="keluar" class="java.math.BigDecimal"/>
+	<field name="masuk" class="java.math.BigDecimal"/>
+	<field name="merk" class="java.lang.String"/>
+	<field name="merk_id" class="java.lang.Integer"/>
+	<field name="periode" class="java.util.Date"/>
+	<field name="qty_max" class="java.math.BigDecimal"/>
+	<field name="qty_min" class="java.math.BigDecimal"/>
+	<field name="qty_order_beli" class="java.math.BigDecimal"/>
+	<field name="qty_order_jual" class="java.math.BigDecimal"/>
+	<field name="saldo_awal" class="java.math.BigDecimal"/>
+	<field name="sat1" class="java.lang.String"/>
+	<field name="sat2" class="java.lang.String"/>
+	<field name="sat3" class="java.lang.String"/>
+	<field name="satbeli" class="java.lang.String"/>
+	<field name="satjual" class="java.lang.String"/>
+	<field name="warna" class="java.lang.String"/>
+	<field name="warna_id" class="java.lang.Integer"/>
+	<variable name="qty_akhir" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[new BigDecimal($F{saldo_awal}.doubleValue() + $F{masuk}.doubleValue() - $F{keluar}.doubleValue())]]></variableExpression>
+	</variable>
+	<variable name="stock_limit" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[new BigDecimal($V{qty_akhir}.doubleValue() - $F{qty_min}.doubleValue())]]></variableExpression>
+	</variable>
+	<title>
+		<band height="80">
+			<textField isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="96" y="40" width="144" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{username}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="40" width="96" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[User:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="60" width="96" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Waktu:]]></text>
+			</staticText>
+			<textField pattern="dd-MMM-yyyy [HH:mm:ss]" isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="96" y="60" width="144" height="20"/>
+				<textElement verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="96" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Laporan:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="96" y="0" width="265" height="20"/>
+				<textElement verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Laporan Stock Limit"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="20" width="96" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Periode:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="96" y="20" width="265" height="20"/>
+				<textElement verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{beg_date}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="20">
+			<staticText>
+				<reportElement x="0" y="0" width="31" height="20"/>
+				<box padding="2">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="131" y="0" width="170" height="20"/>
+				<box padding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nama Produk]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="31" y="0" width="100" height="20"/>
+				<box padding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Kode Produk]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="301" y="0" width="68" height="20"/>
+				<box padding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Satuan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="685" y="0" width="79" height="20"/>
+				<box padding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Stock Limit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="527" y="0" width="79" height="20"/>
+				<box padding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Saldo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="606" y="0" width="79" height="20"/>
+				<box padding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Qty Min]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="369" y="0" width="79" height="20"/>
+				<box padding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Qty Order Jual]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="448" y="0" width="79" height="20"/>
+				<box padding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Qty Order Beli]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<elementGroup/>
+			<textField isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="0" y="0" width="31" height="20"/>
+				<box padding="3"/>
+				<textElement verticalAlignment="Middle" lineSpacing="Single"/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="301" y="0" width="68" height="20"/>
+				<box padding="2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sat1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.##;(#,##0.##)" hyperlinkType="None">
+				<reportElement x="369" y="0" width="79" height="20"/>
+				<box padding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{qty_order_jual}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.##;(#,##0.##)" hyperlinkType="None">
+				<reportElement x="448" y="0" width="79" height="20"/>
+				<box padding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{qty_order_beli}]]></textFieldExpression>
+			</textField>
+			<textField hyperlinkType="None">
+				<reportElement x="31" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{barcode_ext}]]></textFieldExpression>
+			</textField>
+			<textField hyperlinkType="None">
+				<reportElement x="131" y="0" width="170" height="20"/>
+				<box padding="2"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{item_name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.##;(#,##0.##)" hyperlinkType="None">
+				<reportElement x="527" y="0" width="79" height="20"/>
+				<box padding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{qty_akhir}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.##;(#,##0.##)" hyperlinkType="None">
+				<reportElement x="606" y="0" width="79" height="20"/>
+				<box padding="3">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{qty_min}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.##;(#,##0.##)" hyperlinkType="None">
+				<reportElement x="685" y="0" width="79" height="20"/>
+				<box padding="3">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{stock_limit}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="16">
+			<line>
+				<reportElement x="0" y="3" width="765" height="1"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

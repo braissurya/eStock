@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created using JasperAssistant (http://www.jasperassistant.com) -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="kwitansi" pageWidth="595" pageHeight="426" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30" scriptletClass="com.jjtech.estock.utils.JasperScriptlet">
+	<property name="com.jasperassistant.designer.DataSource" value="estock"/>
+	<import value="net.sf.jasperreports.engine.xml.JRXmlLoader"/>
+	<import value="com.ibatis.common.resources.Resources"/>
+	<import value="net.sf.jasperreports.engine.design.JRJdtCompiler"/>
+	<parameter name="payment_id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[new Integer(7)]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select no_payment,  trans.no_trans, nominal, cust.nama
+from mst_payment a
+left join mst_trans trans on trans.trans_id=a.trans_id
+left join mst_customer cust on cust.id= trans.customer_id
+where paid_date is not null
+and payment_id = $P{payment_id}]]>
+	</queryString>
+	<field name="nama" class="java.lang.String"/>
+	<field name="no_payment" class="java.lang.String"/>
+	<field name="no_trans" class="java.lang.String"/>
+	<field name="nominal" class="java.math.BigDecimal"/>
+	<title>
+		<band height="50">
+			<line>
+				<reportElement x="1" y="49" width="553" height="1"/>
+				<graphicElement>
+					<pen lineWidth="2.0" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="2" y="5" width="138" height="45"/>
+				<textElement/>
+				<text><![CDATA[CV TUNAS BARU
+]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="124">
+			<textField hyperlinkType="None">
+				<reportElement x="191" y="0" width="172" height="26"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true" isUnderline="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["KWITANSI"]]></textFieldExpression>
+			</textField>
+			<textField hyperlinkType="None">
+				<reportElement x="191" y="26" width="172" height="26"/>
+				<textElement textAlignment="Center" markup="none">
+					<font size="14" isBold="true" isUnderline="false" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["No. " + $F{no_payment}]]></textFieldExpression>
+			</textField>
+			<textField hyperlinkType="None">
+				<reportElement x="0" y="63" width="156" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Sudah Terima Dari"]]></textFieldExpression>
+			</textField>
+			<textField hyperlinkType="None">
+				<reportElement x="0" y="83" width="156" height="20"/>
+				<textElement markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Banyaknya Uang"]]></textFieldExpression>
+			</textField>
+			<textField hyperlinkType="None">
+				<reportElement x="156" y="63" width="5" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[":"]]></textFieldExpression>
+			</textField>
+			<textField hyperlinkType="None">
+				<reportElement x="156" y="83" width="5" height="20"/>
+				<textElement markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[":"]]></textFieldExpression>
+			</textField>
+			<textField hyperlinkType="None">
+				<reportElement x="156" y="103" width="5" height="20"/>
+				<textElement markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[":"]]></textFieldExpression>
+			</textField>
+			<textField hyperlinkType="None">
+				<reportElement x="0" y="103" width="156" height="20"/>
+				<textElement markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Untuk Pembayaran"]]></textFieldExpression>
+			</textField>
+			<textField hyperlinkType="None">
+				<reportElement x="161" y="103" width="252" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Transaksi dengan No."+$F{no_trans}]]></textFieldExpression>
+			</textField>
+			<textField hyperlinkType="None">
+				<reportElement x="161" y="63" width="252" height="20"/>
+				<textElement markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nama}]]></textFieldExpression>
+			</textField>
+			<textField hyperlinkType="None">
+				<reportElement mode="Transparent" x="161" y="83" width="252" height="20" backcolor="#FFFFFF"/>
+				<textElement markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{REPORT_SCRIPTLET}.formatTerbilang(new BigDecimal($F{nominal}.intValue()),"01")]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="178">
+			<textField hyperlinkType="None">
+				<reportElement x="0" y="34" width="156" height="20"/>
+				<textElement verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Jumlah"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="55" width="306" height="1"/>
+				<graphicElement>
+					<pen lineWidth="2.0" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<textField pattern="#,##0.##;(#,##0.##)" hyperlinkType="None">
+				<reportElement mode="Opaque" x="192" y="34" width="107" height="20" backcolor="#C0C0C0"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{nominal}]]></textFieldExpression>
+			</textField>
+			<textField hyperlinkType="None">
+				<reportElement x="417" y="58" width="120" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Jakarta, "+$P{REPORT_SCRIPTLET}.formatDateIndonesian(new Date())]]></textFieldExpression>
+			</textField>
+			<textField hyperlinkType="None">
+				<reportElement x="418" y="154" width="120" height="24" forecolor="#400040" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["(                                      )"]]></textFieldExpression>
+			</textField>
+			<textField hyperlinkType="None">
+				<reportElement x="417" y="78" width="120" height="20"/>
+				<textElement textAlignment="Center" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Penerima"]]></textFieldExpression>
+			</textField>
+			<textField hyperlinkType="None">
+				<reportElement x="156" y="34" width="5" height="20"/>
+				<textElement markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[":"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="32" width="306" height="1"/>
+				<graphicElement>
+					<pen lineWidth="2.0" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<textField hyperlinkType="None">
+				<reportElement mode="Opaque" x="161" y="34" width="31" height="20" backcolor="#C0C0C0"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Rp."]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

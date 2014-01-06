@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans	xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:p="http://www.springframework.org/schema/p"
+		xmlns:task="http://www.springframework.org/schema/task"
+		xmlns:util="http://www.springframework.org/schema/util"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+			http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd
+			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+	<!-- file properties (agar bisa digunakan di bean2) -->
+	<util:properties id="props" location="classpath:app.properties" />
+
+	<!-- Property placeholder (agar bisa digunakan dalam bentuk ${nama} di semua spring xml). Bisa lebih dari 1 properties -->
+ 	<context:property-placeholder location="classpath:*.properties"/>
+
+	<!-- enable spring task scheduler (lihat com.jjtech.estock.utils.MainScheduler) -->
+<!-- 	<task:annotation-driven /> -->
+
+	<!-- exception handling, bila terjadi error -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerExceptionResolver" p:order="1" /> <!-- pertama, cek dulu apakah ada @ExceptionHandler di masing2 controller -->
+	<bean class="com.jjtech.estock.utils.MainExceptionResolver" p:order="2" /> <!-- kedua, baru gunakan exception handler -->
+
+	<!-- auto-discover semua annotated component (scheduler, emailer, dll) lalu daftarkan semua sebagai beans -->
+	<context:component-scan base-package="com.jjtech.estock.utils" />
+
+	
+	
+	<!-- initOnStartup (bean buatan sendiri untuk beberapa function yg mau dijalankan diawal, contoh: report compiler) -->
+	<bean name="initOnStartup" class="com.jjtech.estock.utils.InitOnStartup">
+		<constructor-arg name="props" ref="props" />
+		<constructor-arg name="servletContext" ref="servletContext" />
+	</bean>
+	
+	<!-- message source, untuk fitur i18n dan error messages -->
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource" p:basename="/WEB-INF/messages" />
+	
+</beans>

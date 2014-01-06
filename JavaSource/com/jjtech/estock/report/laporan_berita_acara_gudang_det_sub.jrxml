@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created using JasperAssistant (http://www.jasperassistant.com) -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="laporan_berita_acara_gudang_det_sub" pageWidth="660" pageHeight="595" orientation="Landscape" columnWidth="660" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" scriptletClass="com.jjtech.estock.utils.JasperScriptlet">
+	<property name="com.jasperassistant.designer.DataSource" value="stock"/>
+	<property name="com.jasperassistant.designer.Grid" value="false"/>
+	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
+	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
+	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
+	<parameter name="opname_id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[new Integer(1)]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT od.*, 
+	   kat.inisial kategori, merk.inisial merk, war.inisial warna, 
+	   sat.inisial sat1, sat2.inisial sat2, sat3.inisial sat3, satj.inisial satjual, satb.inisial satbeli,
+	   item.barcode_ext, item.nama item_name, item.kategori_id, item.merk_id, item.warna_id,
+	   con2.keterangan ket_bag
+FROM mst_opname_det od
+	 LEFT JOIN lst_config con2 ON od.jenis = con2.jenis and con2.id = 3,
+	 lst_item item
+	 LEFT JOIN lst_satuan sat ON item.satuan_id = sat.id
+	 LEFT JOIN lst_satuan sat2 ON item.satuan2_id = sat2.id
+	 LEFT JOIN lst_satuan sat3 ON item.satuan3_id = sat3.id
+	 LEFT JOIN lst_satuan satj ON item.satuan_jual_id = satj.id
+	 LEFT JOIN lst_satuan satb ON item.satuan_beli_id = satb.id
+	 LEFT JOIN lst_kategori kat ON item.kategori_id = kat.id
+	 LEFT JOIN lst_merk merk ON item.merk_id = merk.id
+	 LEFT JOIN lst_warna war ON item.warna_id = war.id
+WHERE od.item_id = item.id
+AND od.opname_id = $P{opname_id}
+;]]>
+	</queryString>
+	<field name="barcode_ext" class="java.lang.String"/>
+	<field name="item_id" class="java.lang.Integer"/>
+	<field name="item_name" class="java.lang.String"/>
+	<field name="jenis" class="java.lang.Boolean"/>
+	<field name="kategori" class="java.lang.String"/>
+	<field name="kategori_id" class="java.lang.Integer"/>
+	<field name="ket_bag" class="java.lang.String"/>
+	<field name="merk" class="java.lang.String"/>
+	<field name="merk_id" class="java.lang.Integer"/>
+	<field name="opname_id" class="java.lang.Integer"/>
+	<field name="qty" class="java.math.BigDecimal"/>
+	<field name="qty_fisik" class="java.math.BigDecimal"/>
+	<field name="sat1" class="java.lang.String"/>
+	<field name="sat2" class="java.lang.String"/>
+	<field name="sat3" class="java.lang.String"/>
+	<field name="satbeli" class="java.lang.String"/>
+	<field name="satjual" class="java.lang.String"/>
+	<field name="warna" class="java.lang.String"/>
+	<field name="warna_id" class="java.lang.Integer"/>
+	<detail>
+		<band height="18">
+			<textField hyperlinkType="None">
+				<reportElement x="0" y="0" width="34" height="18"/>
+				<box topPadding="0" leftPadding="3" bottomPadding="0" rightPadding="3">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.###" isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="34" y="0" width="91" height="18"/>
+				<box topPadding="0" leftPadding="3" bottomPadding="0" rightPadding="3">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{barcode_ext}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="125" y="0" width="187" height="18"/>
+				<box topPadding="0" leftPadding="3" bottomPadding="0" rightPadding="3">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{item_name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.##;(#,##0.##)" isBlankWhenNull="true">
+				<reportElement x="312" y="0" width="79" height="18"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{qty}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.##;(#,##0.##)" isBlankWhenNull="true">
+				<reportElement x="391" y="0" width="79" height="18"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{qty_fisik}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="470" y="0" width="64" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sat1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="534" y="0" width="107" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ket_bag}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="1"/>
+	</columnFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

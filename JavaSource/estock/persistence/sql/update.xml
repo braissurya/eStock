@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jjtech.estock.persistence.DbMapper">
+
+
+	<update id="updateUser" parameterType="User">
+		UPDATE LST_USER
+		<set>
+			<if test="cabang_id != null"> cabang_id = #{cabang_id}, </if>
+			<if test="nama != null"> nama = upper(#{nama}), </if>
+			<if test="dob != null"> dob = #{dob}, </if>
+			<if test="email != null"> email = #{email}, </if>
+			<if test="nik != null"> nik = upper(#{nik}), </if>
+			<if test="username != null"> username = upper(#{username}), </if>
+			<if test="password != null"> password = AES_ENCRYPT(#{passwordDecrypt},'JJTech eSt0ck'), </if>
+			<if test="group_user_id != null"> group_user_id = #{group_user_id}, </if>
+			<if test="lastlogin != null"> lastlogin = #{lastlogin}, </if>
+			<if test="active != null"> active = #{active}, </if>
+			<if test="flag_approval != null"> flag_approval = #{flag_approval}, </if>
+			<if test="flag_akses_all != null"> flag_akses_all = #{flag_akses_all}, </if>
+			<if test="modifyby != null"> modifyby = #{modifyby}, </if>
+			<if test="modifydate != null"> modifydate = #{modifydate} </if>
+		</set>
+		WHERE 	id= #{id}
+	</update>
+
+	<update id="updateGroupUser" parameterType="GroupUser">
+		UPDATE LST_GROUP_USER
+		<set>
+			<if test="nama != null"> nama = upper(#{nama}) </if>
+		</set>
+		WHERE 	id= #{id}
+	</update>
+
+	<update id="updateHakAkses" parameterType="GroupUser">
+		UPDATE LST_HAK_AKSES
+		<set>
+			<if test="active != null"> active = #{active}</if>
+		</set>
+		<where>
+			<if test="group_user_id != null"> group_user_id= #{group_user_id} AND </if>
+			<if test="menu_id != null"> menu_id= #{menu_id} </if>
+		</where>
+	</update>
+
+	<update id="updateMenu" parameterType="Menu">
+		UPDATE LST_MENU
+		<set>
+			<if test="parent != null"> parent = #{parent}, </if>
+			<if test="nama != null"> nama = upper(#{nama}), </if>
+			<if test="link != null"> link = #{link}, </if>
+			<if test="urut != null"> urut = #{urut}, </if>
+			<if test="level != null"> level = #{level}, </if>
+			<if test="path != null"> path = upper(#{path}), </if>
+			<if test="active != null"> active = #{active}, </if>
+			<if test="modifyby != null"> modifyby = #{modifyby}, </if>
+			<if test="modifydate != null"> modifydate = #{modifydate} </if>
+		</set>
+		WHERE 	id= #{id}
+	</update>
+
+	<update id="updateCategory" parameterType="Category">
+		UPDATE LST_KATEGORI
+		<set>
+			<if test="nama != null"> nama = upper(#{nama}), </if>
+			<if test="inisial != null"> inisial = upper(#{inisial}), </if>
+			<if test="active != null"> active = #{active}, </if>
+			<if test="modifyby != null"> modifyby = #{modifyby}, </if>
+			<if test="modifydate != null"> modifydate = #{modifydate} </if>
+		</set>
+		WHERE 	id= #{id}
+	</update>
+
+	<update id="updateSupplier" parameterType="Supplier">
+		UPDATE MST_SUPPLIER
+		<set>
+			<if test="kode != null"> kode = upper(#{kode}), </if>
+			<if test="nama != null"> nama = upper(#{nama}), </if>
+			<if test="alamat != null"> alamat = upper(#{alamat}), </if>
+			<if test="kota != null"> kota = upper(#{kota}), </if>
+			<if test="contact != null"> contact = upper(#{contact}), </if>
+			<if test="no_telp != null"> no_telp = upper(#{no_telp}), </if>
+			<if test="no_hp != null"> no_hp = upper(#{no_hp}), </if>
+			<if test="email != null"> email = upper(#{email}), </if>
+			<if test="tenor != null"> tenor = #{tenor}, </if>
+			<if test="no_fax != null"> no_fax = upper(#{no_fax}), </if>
+			<if test="hutang != null"> hutang = #{hutang}, </if>
+			<if test="last_order != null"> last_order = #{last_order}, </if>
+			<if test="pkp != null"> pkp = #{pkp}, </if>
+			<if test="active != null"> active = #{active}, </if>
+			<if test="modifyby != null"> modifyby = #{modifyby}, </if>
+			<if test="modifydate != null"> modifydate = #{modifydate}</if>
+		</set>
+		WHERE 	id= #{id}
+	</update>
+
+	<update id="updateItem" parameterType="Item">
+		UPDATE LST_ITEM
+		<set>
+			<if test="nama != null"> nama = upper(#{nama}), </if>
+			<if test="inisial != null"> inisial = upper(#{inisial}), </if>
+			<if test="kategori_id != null"> kategori_id = #{kategori_id}, </if>
+			<if test="merk_id != null"> merk_id = #{merk_id}, </if>
+			<if test="warna_id != null"> warna_id = #{warna_id}, </if>
+			<if test="satuan_id != null"> satuan_id = #{satuan_id}, </if>
+			<if test="satuan2_id != null"> satuan2_id = #{satuan2_id}, </if>
+			<if test="qty_satuan2 != null"> qty_satuan2 = #{qty_satuan2}, </if>
+			<if test="satuan3_id != null"> satuan3_id = #{satuan3_id}, </if>
+			<if test="qty_satuan3 != null"> qty_satuan3 = #{qty_satuan3}, </if>
+			<if test="satuan_jual_id != null"> satuan_jual_id = #{satuan_jual_id}, </if>
+			<if test="satuan_beli_id != null"> satuan_beli_id = #{satuan_beli_id}, </if>
+			<if test="harga != null"> harga = #{harga}, </if>
+			<if test="harga_ecer != null"> harga_ecer = #{harga_ecer}, </if>
+			<if test="diskon != null"> diskon = #{diskon}, </if>
+			<if test="diskon_ecer != null"> diskon_ecer = #{diskon_ecer}, </if>
+			<if test="qty_min != null"> qty_min = #{qty_min}, </if>
+			<if test="qty_max != null"> qty_max = #{qty_max}, </if>
+			<if test="hpp_awal != null"> hpp_awal = #{hpp_awal}, </if>
+			<if test="last_order != null"> last_order = #{last_order}, </if>
+			<if test="barcode_ext != null"> barcode_ext = #{barcode_ext}, </if>
+			<if test="barcode_int != null"> barcode_int = #{barcode_int}, </if>
+			<if test="active != null"> active = #{active}, </if>
+			<if test="modifyby != null"> modifyby = #{modifyby}, </if>
+			<if test="modifydate != null"> modifydate = #{modifydate} </if>
+		</set>
+		WHERE 	id= #{id}
+	</update>
+
+	<update id="updateTrans" parameterType="Trans">
+		UPDATE MST_TRANS
+		<set>
+			<if test="trans_date != null"> trans_date = #{trans_date}, </if>
+			<if test="jenis != null"> jenis = #{jenis}, </if>
+			<if test="no_po != null"> no_po = upper(#{no_po}), </if>
+			<if test="no_sj != null"> no_sj = upper(#{no_sj}), </if>
+			<if test="tgl_order != null"> tgl_order = #{tgl_order}, </if>
+			<if test="tgl_kirim != null"> tgl_kirim = #{tgl_kirim}, </if>
+			<if test="tgl_kirim_est != null"> tgl_kirim_est = #{tgl_kirim_est}, </if>
+			<if test="tgl_kembali != null"> tgl_kembali = #{tgl_kembali}, </if>
+			<if test="tgl_kirimNull != null"> tgl_kirim = null, </if>
+			<if test="tgl_req_trans != null"> tgl_req_trans = #{tgl_req_trans}, </if>
+			<if test="tgl_gudang_trans != null"> tgl_gudang_trans = #{tgl_gudang_trans}, </if>
+			<if test="tgl_terima_trans != null"> tgl_terima_trans = #{tgl_terima_trans}, </if>
+			<if test="tgl_order != null"> tgl_order = #{tgl_order}, </if>
+			<if test="flag_ecer != null"> flag_ecer = #{flag_ecer}, </if>
+			<if test="flag_kirim != null"> flag_kirim = #{flag_kirim}, </if>
+			<if test="pay_mode != null"> pay_mode = #{pay_mode}, </if>
+			<if test="dk != null"> dk = upper(#{dk}), </if>
+			<if test="retail_id != null"> retail_id = #{retail_id}, </if>
+			<if test="retail_id_req != null"> retail_id_req = #{retail_id_req}, </if>
+			<if test="gudang_id != null"> gudang_id = #{gudang_id}, </if>
+			<if test="supplier_id != null"> supplier_id = #{supplier_id}, </if>
+			<if test="customer_id != null"> customer_id = #{customer_id}, </if>
+			<if test="sales_id != null"> sales_id = #{sales_id}, </if>
+			<if test="supplier_idNull != null"> supplier_id = null, </if>
+			<if test="customer_idNull != null"> customer_id = null, </if>
+			<if test="sales_idNull != null"> sales_id = null, </if>
+			<if test="driver_id != null"> driver_id = #{driver_id}, </if>
+			<if test="delivery_id != null"> delivery_id = #{delivery_id}, </if>
+			<if test="status_kirim != null"> status_kirim = #{status_kirim}, </if>
+			<if test="status_kirimNull != null"> status_kirimNull = #{status_kirimNull}, </if>
+			<if test="driver_idNull != null"> driver_id = null, </if>
+			<if test="delivery_idNull != null"> delivery_id = null, </if>
+			<if test="ket != null"> ket = upper(#{ket}), </if>
+			<if test="flag_pajak != null"> flag_pajak = #{flag_pajak}, </if>
+			<if test="total_harga != null"> total_harga = #{total_harga}, </if>
+			<if test="total_disc != null"> total_disc = #{total_disc}, </if>
+			<if test="ppn != null"> ppn = #{ppn}, </if>
+			<if test="posisi_id != null"> posisi_id = #{posisi_id}, </if>
+			<if test="print_trans != null"> print_trans = #{print_trans}, </if>
+			<if test="print_sj != null"> print_sj = #{print_sj}, </if>
+			<if test="print_order_form != null"> print_order_form = #{print_order_form}, </if>
+			<if test="print_trans_date != null"> print_trans_date = #{print_trans_date}, </if>
+			<if test="print_faktur_date != null"> print_faktur_date = #{print_faktur_date}, </if>
+			<if test="print_sj_date != null"> print_sj_date = #{print_sj_date}, </if>
+			<if test="due_date != null"> due_date = #{due_date}, </if>
+			<if test="paid != null"> paid = #{paid}, </if>
+			<if test="remain != null"> remain = #{remain}, </if>
+			<if test="no_trans_ref != null"> no_trans_ref = #{no_trans_ref}, </if>
+			<if test="retur_type != null"> retur_type = #{retur_type}, </if>
+			<if test="approveby != null"> approveby = #{approveby}, </if>
+			<if test="approvedate != null"> approvedate = #{approvedate}, </if>
+			<if test="cancel != null"> cancel = #{cancel},</if>
+			<if test="cancelby != null">  cancelby = #{cancelby},</if>
+			<if test="canceldate != null"> canceldate = #{canceldate},</if>
+			<if test="contact_tujuan != null"> contact_tujuan = #{contact_tujuan},</if>
+			<if test="alamat_tujuan != null"> alamat_tujuan = #{alamat_tujuan},</if>
+			<if test="telp_tujuan != null"> telp_tujuan = #{telp_tujuan},</if>
+			<if test="receivedby != null">  receivedby = #{receivedby},</if>
+			<if test="receiveddate != null"> receiveddate = #{receiveddate}</if>
+		</set>
+		WHERE 	trans_id= #{trans_id}
+	</update>
+
+	<update id="updateTransDet" parameterType="TransDet">
+		UPDATE MST_TRANS_DET
+		<set>
+			<if test="item_id != null"> item_id = #{item_id}, </if>
+			<if test="qty_order != null"> qty_order = #{qty_order}, </if>
+			<if test="qty != null"> qty = #{qty}, </if>
+			<if test="harga != null"> harga = #{harga}, </if>
+			<if test="persen_diskon != null"> persen_diskon = #{persen_diskon}, </if>
+			<if test="jumlah_diskon != null"> jumlah_diskon = #{jumlah_diskon}, </if>
+			<if test="dk != null"> dk = upper(#{dk}), </if>
+			<if test="flag != null"> flag = #{flag}, </if>
+			<if test="hpp != null"> hpp = #{hpp}, </if>
+			<if test="ket != null"> ket = upper(#{ket})</if>
+			<if test="jenis_retur != null"> jenis_retur = #{jenis_retur}</if>
+		</set>
+		WHERE 	trans_id= #{trans_id} AND 	urut= #{urut}
+	</update>
+
+	<update id="updateTransHist" parameterType="TransHist">
+		UPDATE MST_TRANS_HIST
+		<set>
+			<if test="posisi_id != null"> posisi_id = #{posisi_id}, </if>
+			<if test="keterangan != null"> keterangan = upper(#{keterangan}), </if>
+			<if test="createby != null"> createby = #{createby}, </if>
+			<if test="createdate != null"> createdate = #{createdate}</if>
+		</set>
+		WHERE 	trans_id= #{trans_id} AND 	tgl= #{tgl}
+	</update>
+
+	<update id="updatePayment" parameterType="Payment">
+	UPDATE MST_PAYMENT
+	<set>
+	        <if test="payment_id != null"> payment_id = #{payment_id}, </if>
+	        <if test="no_payment != null"> no_payment = upper(#{no_payment}), </if>
+	        <if test="trans_id != null"> trans_id = #{trans_id}, </if>
+	        <if test="no_urut != null"> no_urut = #{no_urut}, </if>
+	        <if test="account_id != null"> account_id = #{account_id}, </if>
+	        <if test="trx_id != null"> trx_id = #{trx_id}, </if>
+	        <if test="paid_date != null"> paid_date = #{paid_date}, </if>
+	        <if test="dk != null"> dk = upper(#{dk}), </if>
+	        <if test="cara_bayar != null"> cara_bayar = #{cara_bayar}, </if>
+	        <if test="nominal != null"> nominal = #{nominal}, </if>
+	        <if test="no_giro != null"> no_giro = upper(#{no_giro}), </if>
+	        <if test="due_date != null"> due_date = #{due_date}, </if>
+	        <if test="keterangan != null"> keterangan = upper(#{keterangan}), </if>
+	        <if test="createby != null"> createby = #{createby}, </if>
+	        <if test="createdate != null"> createdate = #{createdate}, </if>
+	        <if test="cancel != null"> cancel = #{cancel}, </if>
+	        <if test="cancelby != null"> cancelby = #{cancelby}, </if>
+	        <if test="canceldate != null"> canceldate = #{canceldate}</if>
+	</set>
+	WHERE   payment_id= #{payment_id}
+	</update>
+
+	<update id="updateStock" parameterType="Stock">
+		UPDATE MST_STOCK
+		<set>
+			<if test="saldo_awal != null"> saldo_awal = #{saldo_awal}, </if>
+			<if test="masuk != null"> masuk = #{masuk}, </if>
+			<if test="keluar != null"> keluar = #{keluar}, </if>
+			<if test="qty_order_jual != null"> qty_order_jual = #{qty_order_jual}, </if>
+			<if test="qty_order_beli != null"> qty_order_beli = #{qty_order_beli}, </if>
+			<if test="hpp_awal != null"> hpp_awal = #{hpp_awal}, </if>
+			<if test="hpp != null"> hpp = #{hpp}</if>
+		</set>
+		WHERE 	cabang_id= #{cabang_id} AND 	item_id= #{item_id}
+		AND 	periode= #{periode}
+	</update>
+
+	<update id="updateStockHist" parameterType="StockHist">
+		UPDATE MST_STOCK_HIST
+		<set>
+		        <if test="cabang_id != null"> cabang_id = #{cabang_id}, </if>
+		        <if test="item_id != null"> item_id = #{item_id}, </if>
+		        <if test="tgl != null"> tgl = #{tgl}, </if>
+		        <if test="no_urut != null"> no_urut = #{no_urut}, </if>
+		        <if test="no_trans != null"> no_trans = upper(#{no_trans}), </if>
+		        <if test="dk != null"> dk = upper(#{dk}), </if>
+		        <if test="qty != null"> qty = #{qty}, </if>
+		        <if test="qty_saldo != null"> qty_saldo = #{qty_saldo}, </if>
+		        <if test="stock_awal != null"> stock_awal = #{stock_awal}, </if>
+		        <if test="stock_akhir != null"> stock_akhir = #{stock_akhir}, </if>
+		        <if test="harga != null"> harga = #{harga}, </if>
+		        <if test="total_harga != null"> total_harga = #{total_harga}, </if>
+		        <if test="hpp != null"> hpp = #{hpp}, </if>
+		        <if test="nilai_hpp != null"> nilai_hpp = #{nilai_hpp}</if>
+		</set>
+		WHERE   cabang_id= #{cabang_id} AND     item_id= #{item_id}
+		AND     tgl= #{tgl}
+		AND     no_urut= #{no_urut}
+	</update>
+
+	<update id="updateCustomer" parameterType="Customer">
+		UPDATE MST_CUSTOMER
+		<set>
+			<if test="kode != null"> kode = upper(#{kode}), </if>
+			<if test="nama != null"> nama = upper(#{nama}), </if>
+			<if test="alamat != null"> alamat = upper(#{alamat}), </if>
+			<if test="kota != null"> kota = upper(#{kota}), </if>
+			<if test="contact != null"> contact = upper(#{contact}), </if>
+			<if test="no_telp != null"> no_telp = upper(#{no_telp}), </if>
+			<if test="no_hp != null"> no_hp = upper(#{no_hp}), </if>
+			<if test="email != null"> email = upper(#{email}), </if>
+			<if test="no_fax != null"> no_fax = upper(#{no_fax}), </if>
+			<if test="limit_hutang != null"> limit_hutang = #{limit_hutang}, </if>
+			<if test="due_date != null"> due_date = #{due_date}, </if>
+			<if test="pkp != null"> pkp = #{pkp}, </if>
+			<if test="flag_ecer != null"> flag_ecer = #{flag_ecer}, </if>
+			<if test="pay_mode != null"> pay_mode = #{pay_mode}, </if>
+			<if test="active != null"> active = #{active}, </if>
+			<if test="modifyby != null"> modifyby = #{modifyby}, </if>
+			<if test="modifydate != null"> modifydate = #{modifydate}</if>
+		</set>
+		WHERE 	id= #{id}
+	</update>
+
+	<update id="updateKaryawan" parameterType="Karyawan">
+		UPDATE MST_KARYAWAN
+		<set>
+			<if test="jenis != null"> jenis = #{jenis}, </if>
+			<if test="nik != null"> nik = upper(#{nik}), </if>
+			<if test="nama != null"> nama = upper(#{nama}), </if>
+			<if test="tgl_masuk != null"> tgl_masuk = #{tgl_masuk}, </if>
+			<if test="tgl_keluar != null"> tgl_keluar = #{tgl_keluar}, </if>
+			<if test="gaji != null"> gaji = #{gaji}, </if>
+			<if test="makan != null"> makan = #{makan}, </if>
+			<if test="transport != null"> transport = #{transport}, </if>
+			<if test="active != null"> active = #{active}, </if>
+			<if test="createby != null"> createby = #{createby}, </if>
+			<if test="createdate != null"> createdate = #{createdate}, </if>
+			<if test="modifyby != null"> modifyby = #{modifyby}, </if>
+			<if test="modifydate != null"> modifydate = #{modifydate}</if>
+		</set>
+		WHERE 	id= #{id}
+	</update>
+
+	<update id="updateMerk" parameterType="Merk">
+		UPDATE LST_MERK
+		<set>
+			<if test="nama != null"> nama = upper(#{nama}), </if>
+			<if test="inisial != null"> inisial = upper(#{inisial}), </if>
+			<if test="active != null"> active = #{active}, </if>
+			<if test="modifyby != null"> modifyby = #{modifyby}, </if>
+			<if test="modifydate != null"> modifydate = #{modifydate} </if>
+		</set>
+		WHERE 	id= #{id}
+	</update>
+
+	<update id="updateSatuan" parameterType="Satuan">
+		UPDATE LST_SATUAN
+		<set>
+			<if test="nama != null"> nama = upper(#{nama}), </if>
+			<if test="inisial != null"> inisial = upper(#{inisial}), </if>
+			<if test="active != null"> active = #{active}, </if>
+			<if test="modifyby != null"> modifyby = #{modifyby}, </if>
+			<if test="modifydate != null"> modifydate = #{modifydate} </if>
+		</set>
+		WHERE 	id= #{id}
+	</update>
+
+	<update id="updateWarna" parameterType="Warna">
+		UPDATE LST_WARNA
+		<set>
+			<if test="nama != null"> nama = upper(#{nama}), </if>
+			<if test="inisial != null"> inisial = upper(#{inisial}), </if>
+			<if test="active != null"> active = #{active}, </if>
+			<if test="modifyby != null"> modifyby = #{modifyby}, </if>
+			<if test="modifydate != null"> modifydate = #{modifydate} </if>
+		</set>
+		WHERE 	id= #{id}
+	</update>
+
+	<update id="updateConfig" parameterType="Config">
+		UPDATE LST_CONFIG
+		<set>
+			<if test="keterangan != null"> keterangan = upper(#{keterangan}), </if>
+			<if test="active != null"> active = #{active}, </if>
+			<if test="modifyby != null"> modifyby = #{modifyby}, </if>
+			<if test="modifydate != null"> modifydate = #{modifydate} </if>
+		</set>
+		WHERE 	id= #{id}
+		AND 	jenis= #{jenis}
+	</update>
+
+	<update id="updateCabang" parameterType="Cabang">
+		UPDATE LST_CABANG
+		<set>
+			<if test="kode != null"> kode = upper(#{kode}), </if>
+			<if test="nama != null"> nama = upper(#{nama}), </if>
+			<if test="jenis != null"> jenis = #{jenis}, </if>
+			<if test="active != null"> active = #{active}, </if>
+			<if test="modifyby != null"> modifyby = #{modifyby}, </if>
+			<if test="modifydate != null"> modifydate = #{modifydate} </if>
+		</set>
+		WHERE 	id= #{id}
+	</update>
+
+	<update id="updateBank" parameterType="Bank">
+		UPDATE LST_BANK
+		<set>
+			<if test="nama != null"> nama = upper(#{nama}), </if>
+			<if test="kode_bi != null"> kode_bi = upper(#{kode_bi}), </if>
+			<if test="active != null"> active = #{active}, </if>
+			<if test="modifyby != null"> modifyby = #{modifyby}, </if>
+			<if test="modifydate != null"> modifydate = #{modifydate} </if>
+		</set>
+		WHERE 	id= #{id}
+	</update>
+
+	<update id="updateAccount" parameterType="Account">
+		UPDATE LST_ACCOUNT
+		<set>
+			<if test="id_bank != null"> id_bank = upper(#{id_bank}), </if>
+			<if test="cabang != null"> cabang = upper(#{cabang}), </if>
+			<if test="no_rek != null"> no_rek = upper(#{no_rek}), </if>
+			<if test="kurs != null"> kurs = #{kurs}, </if>
+			<if test="atas_nama != null"> atas_nama = upper(#{atas_nama}), </if>
+			<if test="saldo != null"> saldo = #{saldo}, </if>
+			<if test="active != null"> active = #{active}, </if>
+			<if test="modifyby != null"> modifyby = #{modifyby}, </if>
+			<if test="modifydate != null"> modifydate = #{modifydate} </if>
+		</set>
+		WHERE 	id= #{id}
+	</update>
+
+	<update id="updateOpname" parameterType="Opname">
+		UPDATE MST_OPNAME
+		<set>
+			<if test="posisi_id != null"> posisi_id = #{posisi_id}, </if>
+			<if test="approveby != null"> approveby = #{approveby}, </if>
+			<if test="approvedate != null"> approvedate = #{approvedate}, </if>
+			<if test="createby != null"> createby = #{createby}, </if>
+			<if test="createdate != null"> createdate = #{createdate},</if>
+			<if test="cancel != null"> cancel = #{cancel}, </if>
+			<if test="cancelby != null"> cancelby = #{cancelby}, </if>
+			<if test="canceldate != null"> canceldate = #{canceldate}</if>
+		</set>
+		WHERE opname_id = #{opname_id}
+		AND cabang_id = #{cabang_id}
+	</update>
+
+	<update id="updateOpnameDet" parameterType="OpnameDet">
+		UPDATE MST_OPNAME_DET
+		<set>
+			<if test="jenis != null"> jenis = #{jenis}, </if>
+			<if test="qty != null"> qty = #{qty}, </if>
+			<if test="qty_fisik != null"> qty_fisik = #{qty_fisik} </if>
+		</set>
+		WHERE opname_id = #{opname_id}
+		AND item_id = #{item_id}
+	</update>
+
+	<update id="updateTrx" parameterType="Trx">
+		UPDATE MST_TRX
+			<set>
+			        <if test="trx_id != null"> trx_id = #{trx_id}, </if>
+			        <if test="no_trx != null"> no_trx = upper(#{no_trx}), </if>
+			        <if test="no_voucher != null"> no_voucher = upper(#{no_voucher}), </if>
+			        <if test="account_id != null"> account_id = #{account_id}, </if>
+			        <if test="cash_flow_id != null"> cash_flow_id = #{cash_flow_id}, </if>
+			        <if test="tgl_trx != null"> tgl_trx = #{tgl_trx}, </if>
+			        <if test="tgl_rk != null"> tgl_rk = #{tgl_rk}, </if>
+			        <if test="tgl_jurnal != null"> tgl_jurnal = #{tgl_jurnal}, </if>
+			        <if test="posisi_id != null"> posisi_id = #{posisi_id}, </if>
+			        <if test="account_id != null"> account_id = #{account_id}, </if>
+			        <if test="createby != null"> createby = #{createby}, </if>
+			        <if test="createdate != null"> createdate = #{createdate}, </if>
+			        <if test="cancel != null"> cancel = #{cancel}, </if>
+			        <if test="cancelby != null"> cancelby = #{cancelby}, </if>
+			        <if test="canceldate != null"> canceldate = #{canceldate}</if>
+			</set>
+			WHERE    trx_id= #{trx_id}
+	</update>
+
+	<update id="updateTrxDet" parameterType="TrxDet">
+		UPDATE MST_TRX_DET
+			<set>
+			        <if test="trx_id != null"> trx_id = #{trx_id}, </if>
+			        <if test="no_urut != null"> no_urut = #{no_urut}, </if>
+			        <if test="coa_id != null"> coa_id = upper(#{coa_id}), </if>
+			        <if test="ket != null"> ket = upper(#{ket}), </if>
+			        <if test="dk != null"> dk = upper(#{dk}), </if>
+			        <if test="jumlah != null"> jumlah = #{jumlah}</if>
+			</set>
+			WHERE    trx_id= #{trx_id} AND  no_urut= #{no_urut}
+	</update>
+
+	<update id="updatePayroll" parameterType="Payroll">
+		UPDATE MST_PAYROLL
+		<set>
+		        <if test="karyawan_id != null"> karyawan_id = #{karyawan_id}, </if>
+		        <if test="periode != null"> periode = #{periode}, </if>
+		        <if test="tgl_bayar != null"> tgl_bayar = #{tgl_bayar}, </if>
+		        <if test="gapok != null"> gapok = #{gapok}, </if>
+		        <if test="uang_makan != null"> uang_makan = #{uang_makan}, </if>
+		        <if test="uang_transport != null"> uang_transport = #{uang_transport}, </if>
+		        <if test="uang_lembur != null"> uang_lembur = #{uang_lembur}, </if>
+		        <if test="bonus != null"> bonus = #{bonus}, </if>
+		        <if test="pot_pinjam != null"> pot_pinjam = #{pot_pinjam}, </if>
+		        <if test="pot_asuransi != null"> pot_asuransi = #{pot_asuransi}, </if>
+		        <if test="pot_lain != null"> pot_lain = #{pot_lain}, </if>
+		        <if test="tgl_input != null"> tgl_input = #{tgl_input}</if>
+		</set>
+		WHERE   id= #{id} 
+	</update>
+	
+	<update id="updateDelivery" parameterType="Delivery">
+		UPDATE MST_DELIVERY
+		<set>
+		        <if test="kode != null"> kode = upper(#{kode}), </if>
+		        <if test="driver_id != null"> driver_id = #{driver_id}, </if>
+		        <if test="posisi_id != null"> posisi_id = #{posisi_id}, </if>
+		        <if test="tgl_kirim != null"> tgl_kirim = #{tgl_kirim}, </if>
+		        <if test="tgl_print_sj != null"> tgl_print_sj = #{tgl_print_sj}, </if>
+		        <if test="tgl_kembali != null"> tgl_kembali = #{tgl_kembali}, </if>
+		        <if test="keterangan != null"> keterangan = upper(#{keterangan}) </if>
+		</set>
+		WHERE   id= #{id}
+	</update>
+	
+	<update id="updateDeliveryDet" parameterType="DeliveryDet">
+		UPDATE MST_DELIVERY_DET
+		<set>
+		        <if test="trans_id != null"> trans_id = #{trans_id}, </if>
+		        <if test="status != null"> status = #{status}, </if>
+		        <if test="tgl_kirim != null"> tgl_kirim = #{tgl_kirim}, </if>
+		        <if test="tgl_terima != null"> tgl_terima = #{tgl_terima}, </if>
+		        <if test="nama_penerima != null"> nama_penerima = upper(#{nama_penerima}), </if>
+		        <if test="tgl_kembali != null"> tgl_kembali = #{tgl_kembali}, </if>
+		        <if test="keterangan != null"> keterangan = upper(#{keterangan})</if>
+		</set>
+		WHERE   delivery_id= #{delivery_id} AND trans_id= #{trans_id}
+	</update>
+	
+	<update id="updateCOA" parameterType="COA">
+		UPDATE LST_COA
+		<set>
+		        <if test="nama != null"> nama = #{nama}, </if>
+		        <if test="level != null"> level = #{level}, </if>
+		        <if test="post != null"> post = #{post}, </if>
+		        <if test="dk != null"> dk = #{dk}, </if>
+		        <if test="parent != null"> parent = #{parent}, </if>
+		        <if test="pl != null"> pl = #{pl}, </if>
+		        <if test="active != null"> active = #{active}, </if>
+		        <if test="createby != null"> createby = #{createby}, </if>
+		        <if test="createdate != null"> createdate = #{createdate}</if>
+		</set>
+		WHERE   id= #{id}
+	</update>
+	
+	<update id="updateRepTB" parameterType="RepTB">
+		UPDATE MST_REP_TB
+		<set>
+	        <if test="saldo != null"> saldo = #{saldo}, </if>
+	        <if test="total_debet != null"> total_debet = #{total_debet}, </if>
+	        <if test="total_kredit != null"> total_kredit = #{total_kredit}, </if>
+	        <if test="last_update != null"> last_update = #{last_update}, </if>
+	        <if test="createby != null"> createby = #{createby}, </if>
+	        <if test="createdate != null"> createdate = #{createdate}</if>
+		</set>
+		WHERE   periode= #{periode} and coa_id = upper(#{coa_id})
+	</update>
+	
+	<update id="updateClosingPeriod" parameterType="ClosingPeriode">
+		UPDATE lst_closing_period
+			set periode = #{periode}
+		WHERE type=#{type} 
+		<if test="cabang_id != null">and cabang_id</if>
+				
+	</update>
+
+</mapper>

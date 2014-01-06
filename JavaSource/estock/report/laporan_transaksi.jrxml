@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created using JasperAssistant (http://www.jasperassistant.com) -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="laporan_transaksi" pageWidth="1080" pageHeight="595" orientation="Landscape" columnWidth="1040" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
+	<property name="com.jasperassistant.designer.DataSource" value="stock"/>
+	<property name="com.jasperassistant.designer.Grid" value="false"/>
+	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
+	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
+	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
+	<parameter name="jenisName" class="java.lang.String">
+		<defaultValueExpression><![CDATA["Penjualan"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pageName" class="java.lang.String">
+		<defaultValueExpression><![CDATA["Order"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="jenis" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[new Integer(3)]]></defaultValueExpression>
+	</parameter>
+	<parameter name="posisi_id" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[new Integer(1)]]></defaultValueExpression>
+	</parameter>
+	<parameter name="beg_date" class="java.lang.String"/>
+	<parameter name="end_date" class="java.lang.String"/>
+	<parameter name="username" class="java.lang.String"/>
+	<parameter name="param" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="judul_report" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+				t.*, lc.keterangan jenisKet, if(t.flag_ecer=1,'Ecer','Grosir') flag_ecerKet,
+				if(t.flag_kirim=1,'Dikirim','Dibawa') flag_kirimKet,
+				if(t.dk='I','Masuk','Keluar') dkKet, cbr.nama retail_idKet, cbg.nama gudang_idKet,
+				ms.nama supplier_idKet, ms.kode supplier_idKode, cs.nama customer_idKet,  cs.kode customer_idKode, ifNull(cs.limit_hutang,0) limit_hutang,  
+				kys.nama sales_idKet, kys.nik sales_idNIK, kyd.nama driver_idKet,  kyd.NIK driver_idNIK,
+				lcp.keterangan posisi_idKet, ua.nama approvebyKet, uc.nama createbyKet, lcp5.keterangan pay_modeKet, lcp13.keterangan retur_typeKet
+			FROM
+				mst_trans t
+				left join lst_cabang cbr on cbr.id = t.retail_id and cbr.jenis=1
+				left join lst_cabang cbg on cbg.id = t.gudang_id and cbg.jenis=2
+				left join lst_config lc  on lc.jenis = t.jenis   and lc.id=1
+				left join lst_config lcp  on lcp.jenis = t.posisi_id   and lcp.id=5
+				left join mst_supplier ms  on ms.id = t.supplier_id
+				left join mst_customer cs  on cs.id = t.customer_id
+				left join mst_karyawan kys  on kys.id = t.sales_id and kys.jenis=3
+				left join mst_karyawan kyd  on kyd.id = t.sales_id and kyd.jenis=2
+				left join lst_config lcp5  on lcp5.jenis = t.pay_mode   and lcp5.id=8
+				left join lst_config lcp13  on lcp13.jenis = t.retur_type   and lcp13.id=13
+				left join lst_user ua  on ua.id = t.approveby
+				left join lst_user uc  on uc.id = t.approveby
+			where t.cancel = 0
+			and t.jenis= $P{jenis}
+			$P!{param}]]>
+	</queryString>
+	<field name="alamat_tujuan" class="java.lang.String"/>
+	<field name="approveby" class="java.lang.Integer"/>
+	<field name="approvebyKet" class="java.lang.String"/>
+	<field name="approvedate" class="java.sql.Timestamp"/>
+	<field name="cancel" class="java.lang.Boolean"/>
+	<field name="cancelby" class="java.lang.Integer"/>
+	<field name="canceldate" class="java.sql.Timestamp"/>
+	<field name="contact_tujuan" class="java.lang.String"/>
+	<field name="createby" class="java.lang.Integer"/>
+	<field name="createbyKet" class="java.lang.String"/>
+	<field name="createdate" class="java.sql.Timestamp"/>
+	<field name="customer_id" class="java.lang.Integer"/>
+	<field name="customer_idKet" class="java.lang.String"/>
+	<field name="customer_idKode" class="java.lang.String"/>
+	<field name="delivery_id" class="java.lang.Integer"/>
+	<field name="dk" class="java.lang.String"/>
+	<field name="dkKet" class="java.lang.String"/>
+	<field name="driver_id" class="java.lang.Integer"/>
+	<field name="driver_idKet" class="java.lang.String"/>
+	<field name="driver_idNIK" class="java.lang.String"/>
+	<field name="due_date" class="java.sql.Timestamp"/>
+	<field name="flag_ecer" class="java.lang.Boolean"/>
+	<field name="flag_ecerKet" class="java.lang.String"/>
+	<field name="flag_kirim" class="java.lang.Boolean"/>
+	<field name="flag_kirimKet" class="java.lang.String"/>
+	<field name="flag_pajak" class="java.lang.Boolean"/>
+	<field name="gudang_id" class="java.lang.Integer"/>
+	<field name="gudang_idKet" class="java.lang.String"/>
+	<field name="jenis" class="java.lang.Integer"/>
+	<field name="jenisKet" class="java.lang.String"/>
+	<field name="ket" class="java.lang.String"/>
+	<field name="limit_hutang" class="java.math.BigDecimal"/>
+	<field name="no_po" class="java.lang.String"/>
+	<field name="no_sj" class="java.lang.String"/>
+	<field name="no_trans" class="java.lang.String"/>
+	<field name="no_trans_ref" class="java.lang.String"/>
+	<field name="paid" class="java.lang.Boolean"/>
+	<field name="pay_mode" class="java.lang.Integer"/>
+	<field name="pay_modeKet" class="java.lang.String"/>
+	<field name="posisi_id" class="java.lang.Integer"/>
+	<field name="posisi_idKet" class="java.lang.String"/>
+	<field name="ppn" class="java.math.BigDecimal"/>
+	<field name="print_faktur_date" class="java.sql.Timestamp"/>
+	<field name="print_order_form" class="java.sql.Timestamp"/>
+	<field name="print_sj" class="java.lang.Boolean"/>
+	<field name="print_sj_date" class="java.sql.Timestamp"/>
+	<field name="print_trans" class="java.lang.Boolean"/>
+	<field name="print_trans_date" class="java.sql.Timestamp"/>
+	<field name="receivedby" class="java.lang.Integer"/>
+	<field name="receiveddate" class="java.sql.Timestamp"/>
+	<field name="remain" class="java.math.BigDecimal"/>
+	<field name="retail_id" class="java.lang.Integer"/>
+	<field name="retail_idKet" class="java.lang.String"/>
+	<field name="retail_id_req" class="java.lang.Integer"/>
+	<field name="retur_type" class="java.lang.Boolean"/>
+	<field name="retur_typeKet" class="java.lang.String"/>
+	<field name="sales_id" class="java.lang.Integer"/>
+	<field name="sales_idKet" class="java.lang.String"/>
+	<field name="sales_idNIK" class="java.lang.String"/>
+	<field name="status_kirim" class="java.lang.Integer"/>
+	<field name="supplier_id" class="java.lang.Integer"/>
+	<field name="supplier_idKet" class="java.lang.String"/>
+	<field name="supplier_idKode" class="java.lang.String"/>
+	<field name="telp_tujuan" class="java.lang.String"/>
+	<field name="tgl_kembali" class="java.sql.Timestamp"/>
+	<field name="tgl_kirim" class="java.sql.Timestamp"/>
+	<field name="tgl_kirim_est" class="java.sql.Timestamp"/>
+	<field name="tgl_order" class="java.sql.Timestamp"/>
+	<field name="total_disc" class="java.math.BigDecimal"/>
+	<field name="total_harga" class="java.math.BigDecimal"/>
+	<field name="trans_date" class="java.sql.Timestamp"/>
+	<field name="trans_id" class="java.lang.Integer"/>
+	<variable name="total_harga" class="java.math.BigDecimal" resetType="Group" resetGroup="retail" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_harga}]]></variableExpression>
+	</variable>
+	<variable name="total_disk" class="java.math.BigDecimal" resetType="Group" resetGroup="retail" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_disc}]]></variableExpression>
+	</variable>
+	<variable name="subtotal_harga" class="java.math.BigDecimal" resetType="Group" resetGroup="retail" calculation="Sum">
+		<variableExpression><![CDATA[new BigDecimal($F{total_harga}.doubleValue() + $F{total_disc}.doubleValue())]]></variableExpression>
+	</variable>
+	<variable name="report_total_harga" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_harga}]]></variableExpression>
+	</variable>
+	<variable name="report_total_disk" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_disc}]]></variableExpression>
+	</variable>
+	<variable name="report_subtotal_harga" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[new BigDecimal($F{total_harga}.doubleValue() + $F{total_disc}.doubleValue())]]></variableExpression>
+	</variable>
+	<group name="retail">
+		<groupExpression><![CDATA[$F{retail_idKet}]]></groupExpression>
+		<groupHeader>
+			<band height="41">
+				<textField isBlankWhenNull="true" hyperlinkType="None">
+					<reportElement x="0" y="0" width="240" height="20"/>
+					<box padding="3"/>
+					<textElement verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["Cabang : "+$F{retail_idKet}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="31" y="21" width="89" height="20"/>
+					<box>
+						<pen lineWidth="1.0" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[No Transaksi]]></text>
+				</staticText>
+				<textField hyperlinkType="None">
+					<reportElement x="120" y="21" width="80" height="20"/>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["Jenis "+$P{jenisName}]]></textFieldExpression>
+				</textField>
+				<textField hyperlinkType="None">
+					<reportElement x="200" y="21" width="80" height="20"/>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["Cara Bayar"]]></textFieldExpression>
+				</textField>
+				<textField hyperlinkType="None">
+					<reportElement x="280" y="21" width="137" height="20"/>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["Sales"]]></textFieldExpression>
+				</textField>
+				<textField hyperlinkType="None">
+					<reportElement x="417" y="21" width="137" height="20"/>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["1,3".contains(""+$P{jenis})?"Supplier":"Customer"]]></textFieldExpression>
+				</textField>
+				<textField hyperlinkType="None">
+					<reportElement x="554" y="21" width="80" height="20"/>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["Tgl Order"]]></textFieldExpression>
+				</textField>
+				<textField hyperlinkType="None">
+					<reportElement x="714" y="21" width="80" height="20"/>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["Tgl Transaksi"]]></textFieldExpression>
+				</textField>
+				<textField hyperlinkType="None">
+					<reportElement x="794" y="21" width="80" height="20"/>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["Total Harga"]]></textFieldExpression>
+				</textField>
+				<textField hyperlinkType="None">
+					<reportElement x="874" y="21" width="80" height="20"/>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["Diskon "+$P{jenisName}]]></textFieldExpression>
+				</textField>
+				<textField hyperlinkType="None">
+					<reportElement x="954" y="21" width="80" height="20"/>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["Total Harga"+$P{jenisName}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="21" width="31" height="20"/>
+					<box padding="2">
+						<pen lineWidth="1.0" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[No]]></text>
+				</staticText>
+				<textField hyperlinkType="None">
+					<reportElement x="634" y="21" width="80" height="20"/>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["Posisi Transaksi"]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="20">
+				<textField isStretchWithOverflow="true" pattern="#,##0.###" hyperlinkType="None">
+					<reportElement stretchType="RelativeToBandHeight" x="794" y="0" width="80" height="20"/>
+					<box padding="3">
+						<topPen lineWidth="1.0" lineStyle="Solid"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Right" markup="none">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{subtotal_harga}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0.###" hyperlinkType="None">
+					<reportElement stretchType="RelativeToBandHeight" x="874" y="0" width="80" height="20"/>
+					<box padding="3">
+						<topPen lineWidth="1.0" lineStyle="Solid"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Right" markup="none">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{total_disk}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0.###" hyperlinkType="None">
+					<reportElement stretchType="RelativeToBandHeight" x="954" y="0" width="80" height="20"/>
+					<box padding="3">
+						<topPen lineWidth="1.0" lineStyle="Solid"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Right" markup="none">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{total_harga}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true" hyperlinkType="None">
+					<reportElement x="0" y="0" width="794" height="20"/>
+					<box padding="3">
+						<topPen lineWidth="1.0" lineStyle="Solid"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["Total "+$P{jenisName}+" Cabang "+$F{retail_idKet}+" :"]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<title>
+		<band height="80">
+			<textField pattern="dd-MM-yyyy [HH:mm:ss]" hyperlinkType="None">
+				<reportElement x="132" y="60" width="120" height="20"/>
+				<textElement verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<textField hyperlinkType="None">
+				<reportElement x="132" y="20" width="412" height="20"/>
+				<textElement verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{beg_date} + " s/d " + $P{end_date}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="40" width="132" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[User:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="132" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Laporan:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="60" width="132" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Waktu:]]></text>
+			</staticText>
+			<textField hyperlinkType="None">
+				<reportElement x="132" y="0" width="412" height="20"/>
+				<textElement verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Laporan " + $P{judul_report}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="20" width="132" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Periode:]]></text>
+			</staticText>
+			<textField hyperlinkType="None">
+				<reportElement x="132" y="40" width="120" height="20"/>
+				<textElement verticalAlignment="Middle" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{username}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="20"/>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<textField isStretchWithOverflow="true" pattern="###0.00#" isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement stretchType="RelativeToBandHeight" x="31" y="0" width="89" height="20"/>
+				<box padding="3">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Top"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{no_trans}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement stretchType="RelativeToBandHeight" x="120" y="0" width="80" height="20"/>
+				<box padding="3">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{flag_ecerKet}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement stretchType="RelativeToBandHeight" x="280" y="0" width="137" height="20"/>
+				<box padding="3">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sales_idKet}==null?"":"["+$F{sales_idNIK}+" ] "+$F{sales_idKet}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="31" height="20"/>
+				<box padding="3">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Top" lineSpacing="Single" markup="none"/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{retail_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement stretchType="RelativeToBandHeight" x="417" y="0" width="137" height="20"/>
+				<box padding="3">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["1,3".contains(""+$P{jenis})?$F{supplier_id}==null?"":"[ "+$F{supplier_idKode}+" ] "+$F{supplier_idKet} :
+$F{customer_id}==null?"":"[ "+$F{customer_idKode}+" ] "+$F{customer_idKet}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd-MM-yyyy" isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement stretchType="RelativeToBandHeight" x="554" y="0" width="80" height="20"/>
+				<box padding="3">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="none"/>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{tgl_order}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd-MM-yyyy" isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement stretchType="RelativeToBandHeight" x="714" y="0" width="80" height="20"/>
+				<box padding="3">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="none"/>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{trans_date}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.###" hyperlinkType="None">
+				<reportElement stretchType="RelativeToBandHeight" x="794" y="0" width="80" height="20"/>
+				<box padding="3">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[new BigDecimal($F{total_harga}.doubleValue() + $F{total_disc}.doubleValue())]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.###" hyperlinkType="None">
+				<reportElement stretchType="RelativeToBandHeight" x="874" y="0" width="80" height="20"/>
+				<box padding="3">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right" markup="none"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{total_disc}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.###" hyperlinkType="None">
+				<reportElement stretchType="RelativeToBandHeight" x="954" y="0" width="80" height="20"/>
+				<box padding="3">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right" markup="none"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{total_harga}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement stretchType="RelativeToBandHeight" x="634" y="0" width="80" height="20"/>
+				<box padding="3">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{posisi_idKet}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement stretchType="RelativeToBandHeight" x="200" y="0" width="80" height="20"/>
+				<box padding="3">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="none"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{pay_modeKet}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="27">
+			<textField isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="0" y="7" width="794" height="20"/>
+				<box padding="3">
+					<topPen lineWidth="3.0" lineStyle="Double"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="3.0" lineStyle="Double"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Grand Total "+$P{jenisName}+" Semua Cabang :"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.###" hyperlinkType="None">
+				<reportElement stretchType="RelativeToBandHeight" x="794" y="7" width="80" height="20"/>
+				<box padding="3">
+					<topPen lineWidth="3.0" lineStyle="Double"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="3.0" lineStyle="Double"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right" markup="none">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{report_subtotal_harga}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.###" hyperlinkType="None">
+				<reportElement stretchType="RelativeToBandHeight" x="874" y="7" width="80" height="20"/>
+				<box padding="3">
+					<topPen lineWidth="3.0" lineStyle="Double"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="3.0" lineStyle="Double"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right" markup="none">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{report_total_disk}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.###" hyperlinkType="None">
+				<reportElement stretchType="RelativeToBandHeight" x="954" y="7" width="80" height="20"/>
+				<box padding="3">
+					<topPen lineWidth="3.0" lineStyle="Double"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="3.0" lineStyle="Double"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right" markup="none">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{report_total_harga}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

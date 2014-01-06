@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decorators defaultdir="/static/decorator">
+
+	<!-- Decorator untuk menyeragamkan styling html di semua jsp -->
+
+	<decorator name="exclude" page="">
+		<pattern>/static/*</pattern>
+	</decorator>
+	
+	
+	
+	<decorator name="login" page="login/internet_dreams/login.jsp">
+		<pattern>/login*</pattern>
+	</decorator>
+	
+	
+	
+	<decorator name="excludemain" page="main/adminiziolite/excludemain.jsp">
+		<pattern>/stockall</pattern>
+		<pattern>/approval</pattern>
+		<pattern>/transaksi/Penjualan/Order</pattern>	
+		<pattern>/transaksi/Penjualan/Gudang</pattern>	  
+		<pattern>/transaksi/Penjualan/OrderTransfer</pattern>
+		<pattern>/transaksi/Penjualan/Delivery</pattern>	
+		<pattern>/transaksi/Penjualan/Retur</pattern>
+		<pattern>/transaksi/Penjualan/Input</pattern>
+		<pattern>/transaksi/Pembelian/Order</pattern>
+		<pattern>/transaksi/Pembelian/Gudang</pattern>		
+		<pattern>/transaksi/Pembelian/OrderTransfer</pattern>	
+		<pattern>/transaksi/Pembelian/Retur</pattern>  
+		<pattern>/transaksi/Pembelian/Input</pattern>
+		<pattern>/keuangan/Cash/In</pattern>
+		<pattern>/keuangan/Cash/Out</pattern>	
+		<pattern>/keuangan/InputTransaksi/1</pattern>
+		<pattern>/keuangan/Cash/inListTrans</pattern>
+		<pattern>/keuangan/Cash/outListTrans</pattern>
+		<pattern>/master/karyawan/list*</pattern>
+		<pattern>/master/customer/list*</pattern>
+		<pattern>/master/supplier/list*</pattern>
+		<pattern>/master/item/list*</pattern>
+	</decorator>
+	
+	<decorator name="main" page="main/adminiziolite/main.jsp">
+		<pattern>/*</pattern>	  
+	</decorator>
+
+</decorators>
