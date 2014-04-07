@@ -34,7 +34,7 @@
 	        	</div>
 				<c:choose>
 					<c:when test="${cabang.mode eq 'VIEW'}"><form:hidden path="kode" /><input type="text" class="text_field read" value="${cabang.kode }" readonly="readonly" size="2"/></c:when>
-					<c:otherwise><form:input path="kode"  id="target" cssClass="text_field" cssErrorClass="text_field inputError" size="2" maxlength="2"/></c:otherwise>
+					<c:otherwise><form:input path="kode"  id="target" cssClass="text_field target" cssErrorClass="text_field inputError target" size="2" maxlength="2"/></c:otherwise>
 		  		</c:choose>
                   <span class="description"></span>
         	</div>

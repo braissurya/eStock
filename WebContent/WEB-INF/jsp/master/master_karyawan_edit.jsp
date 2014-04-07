@@ -27,7 +27,7 @@
 	        	</div>
 				<c:choose>
 					<c:when test="${karyawan.mode eq 'VIEW'}"><form:hidden path="nik" /><input type="text" class="text_field read" value="${karyawan.nik }" readonly="readonly" size="10" /></c:when>
-					<c:otherwise><form:input path="nik"  id="target" cssClass="text_field" cssErrorClass="text_field inputError" size="10" maxlength="10"/></c:otherwise>
+					<c:otherwise><form:input path="nik"  id="target" cssClass="text_field target" cssErrorClass="text_field inputError target" size="10" maxlength="10"/></c:otherwise>
 		  		</c:choose>
                   <span class="description"></span>
         	</div>

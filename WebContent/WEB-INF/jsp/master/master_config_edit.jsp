@@ -37,7 +37,7 @@
         	</div>
             <div class="group">
             	<div class="fieldWithErrors">
-	            	<form:label path="keterangan" cssClass="label" cssErrorClass="label labelError">Keterangan</form:label>
+	            	<form:label path="keterangan" cssClass="label target" cssErrorClass="label labelError target">Keterangan</form:label>
 	                <form:errors path="keterangan" cssClass="error" />
 	        	</div>
 				<c:choose>

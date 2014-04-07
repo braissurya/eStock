@@ -50,7 +50,7 @@
 	            </div>
 				<c:choose>
 					<c:when test="${coa.mode eq 'VIEW' or coa.mode eq 'EDIT'}"><form:hidden path="id" /><input type="text" class="text_field read" value="${coa.id }" readonly="readonly" size="10" /></c:when>
-					<c:otherwise><form:input path="id"  id="target" cssClass="text_field" cssErrorClass="text_field inputError" size="10" maxlength="10"/></c:otherwise>
+					<c:otherwise><form:input path="id"  id="target" cssClass="text_field target" cssErrorClass="text_field inputError target" size="10" maxlength="10"/></c:otherwise>
 		  		</c:choose>
                   <span class="description"></span>
             </div>

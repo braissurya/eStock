@@ -35,7 +35,7 @@
 	        	</div>
 				<c:choose>
 					<c:when test="${customer.mode eq 'VIEW'}"><form:hidden path="nama" /><input type="text" class="text_field read" value="${customer.nama }" readonly="readonly" size="50" /></c:when>
-					<c:otherwise><form:input path="nama"  id="target" cssClass="text_field" cssErrorClass="text_field inputError" size="50" maxlength="50"/></c:otherwise>
+					<c:otherwise><form:input path="nama"   cssClass="text_field target" cssErrorClass="text_field inputError target" size="50" maxlength="50"/></c:otherwise>
 		  		</c:choose>
                   <span class="description"></span>
         	</div>
@@ -48,7 +48,7 @@
 		        	</div> 
 		        	<c:choose>
 						<c:when test="${customer.mode eq 'VIEW'}"><form:hidden path="alamat" /><input type="text" class="text_field read" value="${customer.alamat }" readonly="readonly" size="100" /></c:when>
-						<c:otherwise><form:textarea path="alamat"  id="target" cssClass="text_field" cssErrorClass="text_field inputError" size="100" maxlength="100"/></c:otherwise>
+						<c:otherwise><form:textarea path="alamat"   cssClass="text_field" cssErrorClass="text_field inputError" size="100" maxlength="100"/></c:otherwise>
 			  		</c:choose>
 	                  <span class="description"></span>
 	        	</div>
@@ -59,7 +59,7 @@
 		        	</div>
 		        	<c:choose>
 						<c:when test="${customer.mode eq 'VIEW'}"><form:hidden path="kota" /><input type="text" class="text_field read" value="${customer.kota }" readonly="readonly" size="30"/></c:when>
-						<c:otherwise><form:input path="kota"  id="target" cssClass="text_field" cssErrorClass="text_field inputError" size="30" maxlength="60"/></c:otherwise>
+						<c:otherwise><form:input path="kota"   cssClass="text_field" cssErrorClass="text_field inputError" size="30" maxlength="60"/></c:otherwise>
 			  		</c:choose>
 	                  <span class="description"></span>
 	        	</div>
@@ -73,7 +73,7 @@
 		        	</div>
 		        	<c:choose>
 						<c:when test="${customer.mode eq 'VIEW'}"><form:hidden path="contact" /><input type="text" class="text_field read" value="${customer.contact }" readonly="readonly" size="30" /></c:when>
-						<c:otherwise><form:input path="contact"  id="target" cssClass="text_field" cssErrorClass="text_field inputError" size="30" maxlength="30"/></c:otherwise>
+						<c:otherwise><form:input path="contact"   cssClass="text_field" cssErrorClass="text_field inputError" size="30" maxlength="30"/></c:otherwise>
 			  		</c:choose>
 	                  <span class="description"></span>
 	        	</div>
@@ -84,7 +84,7 @@
 		        	</div>
 		        	<c:choose>
 						<c:when test="${customer.mode eq 'VIEW'}"><form:hidden path="no_telp" /><input type="text" class="text_field read" value="${customer.no_telp }" readonly="readonly" size="11" /></c:when>
-						<c:otherwise><form:input path="no_telp"  id="target" cssClass="text_field" cssErrorClass="text_field inputError" size="11" maxlength="50"/></c:otherwise>
+						<c:otherwise><form:input path="no_telp"   cssClass="text_field" cssErrorClass="text_field inputError" size="11" maxlength="50"/></c:otherwise>
 			  		</c:choose>
 	                  <span class="description"></span>
 	        	</div>
@@ -95,7 +95,7 @@
 		        	</div>
 		        	<c:choose>
 						<c:when test="${customer.mode eq 'VIEW'}"><form:hidden path="no_hp" /><input type="text" class="text_field read" value="${customer.no_hp }" readonly="readonly" size="12" /></c:when>
-						<c:otherwise><form:input path="no_hp"  id="target" cssClass="text_field" cssErrorClass="text_field inputError" size="12" maxlength="30"/></c:otherwise>
+						<c:otherwise><form:input path="no_hp"   cssClass="text_field" cssErrorClass="text_field inputError" size="12" maxlength="30"/></c:otherwise>
 			  		</c:choose>
 	                  <span class="description"></span>
 	        	</div> 
@@ -106,7 +106,7 @@
 		        	</div>
 		        	<c:choose>
 						<c:when test="${customer.mode eq 'VIEW'}"><form:hidden path="no_fax" /><input type="text" class="text_field read" value="${customer.no_fax }" readonly="readonly" size="11" /></c:when>
-						<c:otherwise><form:input path="no_fax"  id="target" cssClass="text_field" cssErrorClass="text_field inputError" size="11" maxlength="30"/></c:otherwise>
+						<c:otherwise><form:input path="no_fax"   cssClass="text_field" cssErrorClass="text_field inputError" size="11" maxlength="30"/></c:otherwise>
 			  		</c:choose>
 	                  <span class="description"></span>
 	        	</div>
@@ -118,7 +118,7 @@
 	        	</div>
 	        	<c:choose>
 					<c:when test="${customer.mode eq 'VIEW'}"><form:hidden path="email" /><input type="text" class="text_field read" value="${customer.email }" readonly="readonly" size="60" /></c:when>
-					<c:otherwise><form:input path="email"  id="target" cssClass="text_field" cssErrorClass="text_field inputError" size="60" maxlength="60"/></c:otherwise>
+					<c:otherwise><form:input path="email"   cssClass="text_field" cssErrorClass="text_field inputError" size="60" maxlength="60"/></c:otherwise>
 		  		</c:choose>
                   <span class="description"></span>
         	</div>
@@ -142,7 +142,7 @@
 							<input type="text" class="text_field read" value="${appr}" readonly="readonly" size="50"/>
 						</c:when>
 						<c:otherwise>
-							<form:radiobutton path="flag_ecer" value="1" label="Eceran" cssClass="target" cssErrorClass="target error"/>
+							<form:radiobutton path="flag_ecer" value="1" label="Eceran" cssClass="" cssErrorClass=" error"/>
 							<form:radiobutton path="flag_ecer" value="0" label="Grosir"/>
 						</c:otherwise>
 			  		</c:choose>
@@ -181,7 +181,7 @@
 							<input type="text" class="text_field read" value="${appr}" readonly="readonly" size="50"/>
 						</c:when>
 						<c:otherwise>
-							<form:radiobutton path="pkp" value="1" label="PKP" cssClass="target" cssErrorClass="target error"/>
+							<form:radiobutton path="pkp" value="1" label="PKP" cssClass="" cssErrorClass=" error"/>
 							<form:radiobutton path="pkp" value="0" label="PTKP"/>
 						</c:otherwise>
 			  		</c:choose>

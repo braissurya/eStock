@@ -1161,7 +1161,7 @@
 	<div style="float: right; padding-top: 7px;padding-right: 5px;">
 
 	    <a href="${path}/transaksi/${trans.jenistrans }/${trans.pagename }/new" title="Add ${trans.pagename } ${trans.jenistrans }"><img title="Add ${trans.pagename } ${trans.jenistrans }" alt="add ${trans.pagename } ${trans.jenistrans }" src="${path }/static/images/icons/addlist.png"></a>
-	     <c:if test="${trans.pagename eq \"Input\"}"><a href="javascript:doAction('${path}/transaksi/${trans.jenistrans }/OrderTransfer', 'Find Order ${trans.jenistrans }',1000,500,false);" title="Find Order ${trans.jenistrans }"><img alt="Find Order ${trans.jenistrans }" title="Find Order ${trans.jenistrans}" src="${path }/static/images/icons/findlist.png"></a></c:if>
+	     <c:if test="${trans.pagename eq \"Input\"}"><a href="javascript:doAction('${path}/transaksi/${trans.jenistrans }/OrderTransfer', 'Find Order ${trans.jenistrans }',1000,500,false);" title="Find Order ${trans.jenistrans }" ><img alt="Find Order ${trans.jenistrans }" title="Find Order ${trans.jenistrans}" src="${path }/static/images/icons/findlist.png"></a></c:if>
 	 	<a href="javascript:doAction('${path}/transaksi/${trans.jenistrans }/${trans.pagename }', 'List ${trans.pagename } ${trans.jenistrans }',1000,500,false);" title="List ${trans.pagename } ${trans.jenistrans }"><img alt="list ${trans.pagename } ${trans.jenistrans }" title="List ${trans.pagename } ${trans.jenistrans }" src="${path }/static/images/icons/list.png"></a>
 	 </div>
 	<h1>Input Transaksi ${trans.pagename } ${trans.jenistrans } &gt; ${trans.mode }
@@ -1312,7 +1312,18 @@
 						<c:when test="${trans.mode eq 'VIEW'}"><form:hidden path="pay_mode" /><input type="text" class="text_field read" value="${trans.pay_modeKet}" readonly="readonly" size="10"/></c:when>
 						<c:otherwise>
 							<c:forEach items="${reff.lsPayMode }" var="lp" varStatus="ls">
-								<form:radiobutton path="pay_mode" value="${lp.key}"  label="${lp.value}" />
+								<c:if test="${trans.jenistrans eq \"Pembelian\" }">
+									<c:choose>
+										<c:when test="${ls.count eq \"1\"}">
+											<c:set var="target" value="target" />
+										</c:when>
+										<c:otherwise>
+											<c:set var="target" value="" />
+										</c:otherwise>
+									</c:choose>
+								</c:if>
+								
+								<form:radiobutton path="pay_mode" value="${lp.key}"  label="${lp.value}" cssClass="${target }" />
 							</c:forEach>
 						</c:otherwise>
 					 </c:choose>
@@ -1328,7 +1339,7 @@
 						<c:when test="${trans.mode eq 'VIEW'}"><form:hidden path="flag_pajak" /><input type="text" class="text_field read" value="${trans.flag_pajak}" readonly="readonly" size="10"/></c:when>
 						<c:otherwise>
 
-							<form:radiobutton path="flag_pajak" value="1"  label="PKP"  cssClass="target" cssErrorClass="target error"/>
+							<form:radiobutton path="flag_pajak" value="1"  label="PKP"  cssClass="" cssErrorClass=" error"/>
 							<form:radiobutton path="flag_pajak" value="0" label="PTKP"/>
 						</c:otherwise>
 					 </c:choose>
@@ -1342,7 +1353,7 @@
    		
  		<div class="group">
 	         <div class="fieldWithErrors">
-	               <form:label path="karyawan.nama"  cssClass="label" cssErrorClass="label labelError">Nama Sales <a class="reffSearch" href="javascript:doAction('${path}/master/karyawan/list/3', 'Cari Sales',1000,500,false);">(Cari) </a></form:label>
+	               <form:label path="karyawan.nama"  cssClass="label" cssErrorClass="label labelError">Nama Sales <a class="reffSearch" href="javascript:doAction('${path}/master/karyawan/list/3', 'Cari Sales',1000,500,false);" tabindex="-1">(Cari) </a></form:label>
 	               <form:errors path="karyawan.nama" cssClass="error" />
 		     </div>
 	     	 <c:choose>
@@ -1365,7 +1376,7 @@
 
 	<c:choose>
 		<c:when test="${trans.jenistrans eq \"Penjualan\"}">
-			<h3 class="tit">Data Customer  <a class="reffSearch" href="javascript:doAction('${path}/master/customer/list', 'Cari Customer',1000,500,false);">(Cari) </a></h3>
+			<h3 class="tit">Data Customer  <a class="reffSearch" href="javascript:doAction('${path}/master/customer/list', 'Cari Customer',1000,500,false);" tabindex="-1">(Cari) </a></h3>
 			
 		    <div class="group">
 		         <div class="fieldWithErrors">
@@ -1463,7 +1474,7 @@
 		    
 			<div class="space"></div>
 			
-			<h3 class="tit"><form:checkbox id="kirimCheck" path="flag_kirim" label=" Kirim Barang" value="1"/> <a class="reffSearch" href="#" id="copyCstToKrm" title="Copy data Pengiriman dari Data Customer">(Copy)</a></h3>
+			<h3 class="tit"><form:checkbox id="kirimCheck" path="flag_kirim" label=" Kirim Barang" value="1"/> <a class="reffSearch" href="#" id="copyCstToKrm" title="Copy data Pengiriman dari Data Customer" tabindex="-1">(Copy)</a></h3>
 			<div id="contentkirim">
 			 <table  class="nostyle"  >
 				  <tr>
@@ -1533,7 +1544,7 @@
 			</div>
 		</c:when>
 		<c:when test="${trans.jenistrans eq \"Pembelian\"}">
-			 <h3 class="tit">Data Supplier <a class="reffSearch" href="javascript:doAction('${path}/master/supplier/list', 'Cari Supplier',1000,500,false);">(Cari) </a></h3>
+			 <h3 class="tit">Data Supplier <a class="reffSearch" href="javascript:doAction('${path}/master/supplier/list', 'Cari Supplier',1000,500,false);" tabindex="-1">(Cari) </a></h3>
 			  
 			
 		    <div class="group">
@@ -1673,7 +1684,7 @@
 	  
 	    <div class="group">
 	        <div class="fieldWithErrors">
-	             <label class="label">Kode Produk <a class="reffSearch" href="javascript:doAction('${path}/master/item/list', 'Cari Produk',1000,500,false);">(Cari) </a></label>
+	             <label class="label">Kode Produk <a class="reffSearch" href="javascript:doAction('${path}/master/item/list', 'Cari Produk',1000,500,false);" tabindex="-1">(Cari) </a></label>
 	        </div>
 	       <input type="text" class="text_field kode" value="${trans.transDet.barcode_ext }" name="barcode_ext" id="barcode_ext"   size="12" />
 	       <span class="description"></span>

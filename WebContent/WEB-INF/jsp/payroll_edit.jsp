@@ -198,7 +198,7 @@
 	        	<c:choose>
 					<c:when test="${payroll.mode eq 'VIEW'}"><form:hidden path="periode" /><input type="text" class="text_field read" value="${payroll.periode }" readonly="readonly" /></c:when>
 					<c:otherwise>
-						<form:input path="periode" cssClass="text_field periodepicker" cssErrorClass="text_field periodepicker error"/>
+						<form:input path="periode" cssClass="text_field periodepicker target" cssErrorClass="text_field periodepicker error target"/>
 					</c:otherwise>
 		  		</c:choose>
             </div>

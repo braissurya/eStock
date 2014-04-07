@@ -34,7 +34,7 @@
 	        	</div>
 				<c:choose>
 					<c:when test="${merk.mode eq 'VIEW'}"><form:hidden path="nama" /><input type="text" class="text_field read" value="${merk.nama }" readonly="readonly" size="60"/></c:when>
-					<c:otherwise><form:input path="nama"  id="target" cssClass="text_field" cssErrorClass="text_field inputError" size="60" maxlength="60"/></c:otherwise>
+					<c:otherwise><form:input path="nama"  id="target" cssClass="text_field target" cssErrorClass="text_field inputError target" size="60" maxlength="60"/></c:otherwise>
 		  		</c:choose>
                   <span class="description"></span>
         	</div>

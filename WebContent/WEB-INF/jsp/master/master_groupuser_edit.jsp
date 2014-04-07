@@ -34,7 +34,7 @@
            </div>
            <c:choose>
 				<c:when test="${groupuser.mode eq 'VIEW'}"><form:hidden path="nama" /><input type="text" class="text_field read" value="${groupuser.nama }" readonly="readonly" /></c:when>
-				<c:otherwise><form:input path="nama"  id="target" cssClass="text_field" cssErrorClass="text_field inputError" size="80" maxlength="80"/></c:otherwise>
+				<c:otherwise><form:input path="nama"  id="target" cssClass="text_field target" cssErrorClass="text_field inputError target" size="80" maxlength="80"/></c:otherwise>
 		   </c:choose>
            <span class="description"></span>
         </div>

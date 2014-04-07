@@ -171,12 +171,12 @@
 						<c:choose>
 							<c:when test="${payment.mode eq 'VIEW'}"><form:hidden path="no_trans" /><input type="text" class="text_field read" value="${payment.no_trans}" size="20"/></c:when>
 							<c:otherwise>
-								<input type="text" class="text_field" name="no_trans" id="no_trans" value="${payment.no_trans}" />
+								<input type="text" class="text_field target" name="no_trans" id="no_trans" value="${payment.no_trans}" />
 								<c:if test="${payment.jenispayment eq \"In\"}">
-							 		<a href="javascript:doAction('${path}/keuangan/Cash/inListTrans', 'Find Transaksi Penjualan',1000,500,false);" title="Find Transaksi Penjualan"><img alt="Find Transaksi Penjualan" title="Find Transaksi Penjualan" src="${path }/static/images/icons/findlist.png"></a>
+							 		<a href="javascript:doAction('${path}/keuangan/Cash/inListTrans', 'Find Transaksi Penjualan',1000,500,false);" title="Find Transaksi Penjualan" tabindex="-1"><img alt="Find Transaksi Penjualan" title="Find Transaksi Penjualan" src="${path }/static/images/icons/findlist.png"></a>
 							 	</c:if>
 							 	<c:if test="${payment.jenispayment eq \"Out\"}">
-							 		<a href="javascript:doAction('${path}/keuangan/Cash/outListTrans', 'Find Transaksi Pembelian',1000,500,false);" title="Find Transaksi Pembelian"><img alt="Find Transaksi Pembelian" title="Find Transaksi Pembelian" src="${path }/static/images/icons/findlist.png"></a>
+							 		<a href="javascript:doAction('${path}/keuangan/Cash/outListTrans', 'Find Transaksi Pembelian',1000,500,false);" title="Find Transaksi Pembelian" tabindex="-1"><img alt="Find Transaksi Pembelian" title="Find Transaksi Pembelian" src="${path }/static/images/icons/findlist.png"></a>
 							 	</c:if>
 							</c:otherwise>
 						</c:choose>

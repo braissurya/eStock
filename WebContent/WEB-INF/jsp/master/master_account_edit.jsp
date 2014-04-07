@@ -35,7 +35,7 @@
 				<c:choose>
 					<c:when test="${account.mode eq 'VIEW'}"><form:hidden path="id_bank" /><input type="text" class="text_field read" value="${account.namabank }" readonly="readonly" /></c:when>
 					<c:otherwise>
-						<form:select path="id_bank">
+						<form:select path="id_bank" cssClass="target">
 							<form:option value="">Silahkan Pilih Bank</form:option>
 							<form:options items="${reff.AllBank}" itemValue="key" itemLabel="value"/>
 						</form:select>

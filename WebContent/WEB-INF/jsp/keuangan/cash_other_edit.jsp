@@ -260,7 +260,7 @@
 						<c:choose>
 							<c:when test="${trx.mode eq 'VIEW'}"><form:hidden path="tgl_rk" /><input type="text" class="text_field read" value="<fmt:formatDate value="${trx.tgl_rk }" pattern="dd-MM-yyyy HH:mm:ss"/>" readonly="readonly" size="10"/></c:when>
 							<c:otherwise>
-								<form:input path="tgl_rk"  cssClass="text_field datepicker" size="10" />
+								<form:input path="tgl_rk"  cssClass="text_field target datepicker" size="10" />
 							</c:otherwise>
 						</c:choose>
 						<span class="description"></span>

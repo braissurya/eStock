@@ -71,7 +71,7 @@
 				<input type="text" class="text_field read" value="${appr}" readonly="readonly" size="50"/>
 			</c:when>
 			<c:otherwise>
-				<form:radiobutton path="flag_approval" value="1" label="User Approval"/>
+				<form:radiobutton path="flag_approval" value="1" label="User Approval" cssClass="target" cssErrorClass="target"/>
 				<form:radiobutton path="flag_approval" value="0" label="User Regular"/>
 			</c:otherwise>
 	   </c:choose>

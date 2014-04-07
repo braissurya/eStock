@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jjtech.estock.persistence.DbMapper">
+
+	<delete id="deleteGroupUser" parameterType="Integer">
+		delete from Lst_group_user where id = #{value}
+	</delete>
+	
+	<delete id="deleteHakAkses" parameterType="Integer">
+		delete from Lst_hak_akses where group_user_id = #{value}
+	</delete>
+	
+	<delete id="deleteTransDet" >
+		delete from mst_trans_det where trans_id = #{trans_id}
+		<if test="item_id != null">
+			and item_id=#{item_id}
+		</if>
+	</delete>
+	
+	<delete id="deleteDeliveryDet" >
+		delete from mst_delivery_det where delivery_id = #{delivery_id}
+		<if test="trans_id != null">
+			and trans_id=#{trans_id}
+		</if>
+	</delete>
+	
+	<delete id="deleteTrxDet" parameterType="Integer">
+		delete from mst_trx_det where trx_id = #{value}
+	</delete>
+	
+</mapper>
